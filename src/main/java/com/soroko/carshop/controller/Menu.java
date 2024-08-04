@@ -6,7 +6,6 @@ import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
@@ -35,8 +34,8 @@ public class Menu {
 
     public void registerOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
-            LOGGER.info("userService is null or empty");
-            return;
+            LOGGER.severe("userService is null or empty");
+            throw new IllegalArgumentException("userService is null or empty");
         }
         System.out.println(LOGIN);
         String login = sc.next();
@@ -57,7 +56,8 @@ public class Menu {
 
     public boolean loginOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
-            LOGGER.info("userService is null or empty");
+            LOGGER.severe("userService is null or empty");
+            throw new IllegalArgumentException("userService is null or empty");
         }
         System.out.println(LOGIN);
         String login = sc.next();
@@ -81,8 +81,8 @@ public class Menu {
 
     public void printCarsMenu(CarService carService) {
         if (carService == null) {
-            LOGGER.info("CarService is null");
-            return;
+            LOGGER.severe("CarService is null");
+            throw new IllegalArgumentException("carService is null");
         }
         while (true) {
             System.out.println(CARS_NAVIGATION);
@@ -121,9 +121,9 @@ public class Menu {
     public void printOrdersMenu(OrderService orderService,
                                 UserService userService,
                                 CarService carService) {
-        if (orderService == null) {
-            LOGGER.info("orderService is null");
-            return;
+        if (orderService == null || userService == null || carService == null) {
+            LOGGER.info("Service is null");
+            throw new IllegalArgumentException("Service is null");
         }
         while (true) {
             if (isAdmin || isManager) {
@@ -158,7 +158,10 @@ public class Menu {
     }
 
     public void printUsersMenu(UserService userService) {
-
+        if (userService == null) {
+            LOGGER.info("orderService is null");
+            throw new IllegalArgumentException("orderService is null");
+        }
         while (true) {
             if (isAdmin) {
                 System.out.println(USERS_NAVIGATION);
