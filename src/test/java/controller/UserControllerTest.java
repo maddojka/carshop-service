@@ -22,28 +22,4 @@ public class UserControllerTest {
         UserController.userServiceIsNull(new UserService());
     }
 
-  /*  @Test
-    public void getUsers_isNull() {
-        UserAction userAction = new UserAction();
-        userAction.getUsers(null);
-    }
-
-    @Test
-    public void registerUser_isNull() {
-        UserAction userAction = new UserAction();
-        userAction.registerUser(null);
-    }
-
-    @Test
-    public void editUser_isNull() {
-        UserAction userAction = new UserAction();
-        userAction.editUser(null);
-    }
-
-    @Test
-    public void removeUser_isNull() {
-        UserAction userAction = new UserAction();
-        userAction.removeUser(null);
-    }*/
-
 }

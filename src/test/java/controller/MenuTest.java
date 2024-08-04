@@ -2,7 +2,6 @@ package controller;
 
 import com.soroko.carshop.controller.Menu;
 import com.soroko.carshop.service.CarService;
-import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,11 +60,5 @@ public class MenuTest {
         menu.setClient(true);
         menu.setManager(true);
         menu.setAdmin(true);
-      /*  menu.registerOperation(new UserService());
-        menu.loginOperation(new UserService());*/
-      /*  menu.printAuthMenu();
-        menu.printCarsMenu(new CarService());
-        menu.printUsersMenu(new UserService());
-        menu.printOrdersMenu(new OrderService(), new UserService(), new CarService());*/
     }
 }

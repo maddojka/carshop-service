@@ -117,7 +117,6 @@ public class CarController {
     }
 
 
-
     public void removeCar(CarService carService) {
         carServiceIsNull(carService);
         if (carServiceIsEmpty(carService)) return;
@@ -129,7 +128,7 @@ public class CarController {
 
     public static void carServiceIsNull(CarService carService) {
         if (carService == null) {
-            LOGGER.log(Level.SEVERE,"CarService is null");
+            LOGGER.log(Level.SEVERE, "CarService is null");
             throw new IllegalArgumentException();
         }
     }

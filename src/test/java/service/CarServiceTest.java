@@ -105,7 +105,7 @@ public class CarServiceTest {
 
     @Test
     public void findAndSortCarByMake_isOk() {
-                carService.findByModel("Lada");
+        carService.findByModel("Lada");
     }
 
     @Test
@@ -208,7 +208,6 @@ public class CarServiceTest {
     public void findCarByConditionAndPrice_isOk() {
         carService.findByConditionAndPrice("new", 1_000_000.0);
     }
-
 
 
 }

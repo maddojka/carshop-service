@@ -88,7 +88,7 @@ public class UserController {
 
     public static void userServiceIsNull(UserService userService) {
         if (userService == null) {
-            LOGGER.log(Level.SEVERE,"userService is null");
+            LOGGER.log(Level.SEVERE, "userService is null");
             throw new IllegalArgumentException(("userService is null"));
         }
     }

@@ -1,16 +1,15 @@
 package com.soroko.carshop.controller;
 
 import com.soroko.carshop.entity.User;
-import com.soroko.carshop.logger.CarShopLogger;
 import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
-import static com.soroko.carshop.entity.User.Role.*;
+import static com.soroko.carshop.entity.User.Role.ADMINISTRATOR;
+import static com.soroko.carshop.entity.User.Role.MANAGER;
 
 /**
  * @author yuriy.soroko

@@ -1,6 +1,5 @@
 package service;
 
-import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -63,8 +62,8 @@ public class UserServerTest {
 
     @Test
     public void editUser_correctId() {
-         User user =
-                 new User("user01", "123", "user01@gmail.com", User.Role.CLIENT);
+        User user =
+                new User("user01", "123", "user01@gmail.com", User.Role.CLIENT);
         userService.getUsers().add(user);
         userService.editUser(0, user);
     }
