@@ -12,12 +12,14 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarService {
     private final List<Car> cars = new ArrayList<>();
 
     /**
      * Add car to collection
+     * @param car - car to add
      */
     public void addCar(Car car) {
         if (car == null) {
@@ -30,6 +32,8 @@ public class CarService {
 
     /**
      * Get car by id
+     * @param id - id of the car to get
+     * @return car - requested Car
      */
     public Car getCar(int id) {
         if (id < 0 || id >= this.cars.size()) {
@@ -41,6 +45,7 @@ public class CarService {
 
     /**
      * Get all cars from collection
+     * @return List of the available cars
      */
     public List<Car> getCars() {
         return this.cars;
@@ -49,6 +54,8 @@ public class CarService {
 
     /**
      * Edit car by id
+     * @param id - id of the car to edit
+     * @param car - form of the car to edit
      */
     public void editCar(int id, Car car) {
         if (car == null || id < 0 || id >= this.cars.size()) {
@@ -65,6 +72,7 @@ public class CarService {
 
     /**
      * Sell car by id
+     * @param id - id of the car to remove from the collection
      */
     public void sellCar(int id) {
         if (id < 0 || id >= this.cars.size()) {
@@ -77,6 +85,8 @@ public class CarService {
 
     /**
      * Find and sort cars by make
+     * @param make - filter by make which was requested
+     * @return List of the filtered and sorted cars
      */
     public List<Car> findAndSortBy(String make) {
         if ("".equals(make) || make == null) {
@@ -88,6 +98,8 @@ public class CarService {
 
     /**
      * Find and sort cars by year
+     * @param year - filter by year which was requested
+     * @return List of the filtered and sorted cars
      */
     public List<Car> findAndSortBy(int year) {
         if (year < 2000 || year > Calendar.getInstance().get(Calendar.YEAR)) {
@@ -100,6 +112,8 @@ public class CarService {
 
     /**
      * Find and sort cars by price
+     * @param price - filter by price which was requested
+     * @return List of the filtered and sorted cars
      */
     public List<Car> findAndSortBy(double price) {
         if (price < 0) {
@@ -111,6 +125,8 @@ public class CarService {
 
     /**
      * Find cars by model
+     * @param model - filter by model which was requested
+     * @return List of the filtered cars
      */
     public List<Car> findByModel(String model) {
         if ("".equals(model) || model == null) {
@@ -122,6 +138,8 @@ public class CarService {
 
     /**
      * Find cars by condition
+     * @param condition - filter by condition which was requested
+     * @return List of the filtered cars
      */
     public List<Car> findByCondition(String condition) {
         if ("".equals(condition) || condition == null) {
@@ -133,6 +151,8 @@ public class CarService {
 
     /**
      * Find cars by condition and price
+     * @param condition - filter by condition and price which was requested
+     * @return List of the filtered cars
      */
     public List<Car> findByConditionAndPrice(String condition, double price) {
         if ("".equals(condition) || condition == null || price < 0) {

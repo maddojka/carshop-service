@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarTest {
 

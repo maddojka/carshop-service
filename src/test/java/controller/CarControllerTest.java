@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarControllerTest {
     private CarController carController;
@@ -31,4 +35,12 @@ public class CarControllerTest {
         CarController.carServiceIsNull(new CarService());
     }
 
+
+    @Test
+    public void Car_pauseBeforeExit_isOk() {
+
+        InputStream in = new ByteArrayInputStream("something".getBytes());
+        System.setIn(in);
+        Assertions.assertEquals("something", carController.pauseBeforeExit());
+    }
 }

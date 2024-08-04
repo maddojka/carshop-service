@@ -13,6 +13,7 @@ import static com.soroko.carshop.entity.User.Role.MANAGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarShopManager {
     private final Menu menu;
@@ -21,7 +22,6 @@ public class CarShopManager {
     private final UserService userService;
     private final Scanner scanner;
     private boolean isLoggedIn = false;
-
 
     public CarShopManager() {
         scanner = new Scanner(System.in);

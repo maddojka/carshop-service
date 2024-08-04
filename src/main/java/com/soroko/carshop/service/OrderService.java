@@ -14,12 +14,15 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class OrderService {
     private final List<Order> orders = new ArrayList<>();
 
     /**
      * Add order to collection
+     *
+     * @param order - order to add
      */
     public void addOrder(Order order) {
         if (orders.contains(orders)) {
@@ -36,6 +39,9 @@ public class OrderService {
 
     /**
      * Get order by id
+     *
+     * @param id - id of the order to get
+     * @return order - requested Order
      */
     public Order getOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
@@ -47,6 +53,8 @@ public class OrderService {
 
     /**
      * Get all orders from collection
+     *
+     * @return List of the available orders
      */
     public List<Order> getOrders() {
         return this.orders;
@@ -54,6 +62,9 @@ public class OrderService {
 
     /**
      * Edit order by id
+     *
+     * @param id    - id of the order to edit
+     * @param order - form of the order to edit
      */
     public void editOrder(int id, Order order) {
         if (order == null || id < 0 || id >= this.orders.size()) {
@@ -67,6 +78,8 @@ public class OrderService {
 
     /**
      * Cancel order by id
+     *
+     * @param id - id of the order to remove from the collection
      */
     public void cancelOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
@@ -79,6 +92,8 @@ public class OrderService {
 
     /**
      * Complete order by id
+     *
+     * @param id - id of the order to complete the order
      */
     public void completeOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
@@ -91,17 +106,23 @@ public class OrderService {
 
     /**
      * Find order by car model
+     *
+     * @param model - filter by model which was requested
+     * @return List of the filtered orders
      */
-    public List<Order> findByCarModel(String carName) {
-        if (carName == null || carName.isEmpty()) {
+    public List<Order> findByCarModel(String model) {
+        if (model == null || model.isEmpty()) {
             LOGGER.severe("Car is empty");
             throw new IllegalArgumentException("Car is empty");
         }
-        return orders.stream().filter(x -> x.getCar().getModel().equals(carName)).toList();
+        return orders.stream().filter(x -> x.getCar().getModel().equals(model)).toList();
     }
 
     /**
      * Find order by user
+     *
+     * @param user - filter by user which was requested
+     * @return List of the filtered orders
      */
     public List<Order> findBy(User user) {
         if (user == null) {
@@ -113,6 +134,9 @@ public class OrderService {
 
     /**
      * Find order by status
+     *
+     * @param status - filter by status which was requested
+     * @return List of the filtered orders
      */
     public List<Order> findBy(String status) {
         if ("".equals(status) || status == null) {
@@ -126,6 +150,9 @@ public class OrderService {
 
     /**
      * Find order by date
+     *
+     * @param localDate - filter by date which was requested
+     * @return List of the filtered orders
      */
     public List<Order> findBy(LocalDate localDate) {
         if (localDate == null) {
@@ -134,6 +161,4 @@ public class OrderService {
         }
         return orders.stream().filter(x -> x.getCreatedAt().isEqual(localDate)).toList();
     }
-
-
 }

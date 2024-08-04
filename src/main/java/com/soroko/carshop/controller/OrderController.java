@@ -16,16 +16,24 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class OrderController {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * This method perform a pause function in order to see result of the query
+     */
     public void pauseBeforeExit() {
         System.out.println("Enter something to return");
         String selector = scanner.next();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * receive all available orders
+     */
     public void getOrders(OrderService orderService) {
         orderServiceIsNull(orderService);
         if (orderService.getOrders().isEmpty()) {
@@ -34,6 +42,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by car model
+     */
     public void getOrderByCarModel(OrderService orderService) {
         orderServiceIsNull(orderService);
         System.out.println("Enter car model");
@@ -42,6 +54,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by user
+     */
     public void getOrderByUser(OrderService orderService,
                                UserService userService) {
         orderServiceIsNull(orderService);
@@ -57,6 +73,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by status
+     */
     public void getOrderByStatus(OrderService orderService) {
         orderServiceIsNull(orderService);
         System.out.println("Enter status");
@@ -65,6 +85,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by date
+     */
     public void getOrderByDate(OrderService orderService) {
         orderServiceIsNull(orderService);
         System.out.println("Enter date");
@@ -73,6 +97,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * create new order in the system
+     */
     public void createOrder(OrderService orderService,
                             UserService userService,
                             CarService carService) {
@@ -98,6 +126,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * edit existing order in the system
+     */
     public void editOrder(OrderService orderService,
                           UserService userService,
                           CarService carService) {
@@ -137,6 +169,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * cancel existing order in the system
+     */
     public void cancelOrder(OrderService orderService) {
         orderServiceIsNull(orderService);
         if (orderService.getOrders().isEmpty()) {
@@ -149,6 +185,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * complete existing order in the system
+     */
     public void completeOrder(OrderService orderService) {
         orderServiceIsNull(orderService);
         if (orderService.getOrders().isEmpty()) {
@@ -161,6 +201,10 @@ public class OrderController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * check if carService is null
+     */
     public static void orderServiceIsNull(OrderService orderService) {
         if (orderService == null) {
             LOGGER.log(Level.SEVERE, "orderService is null");

@@ -12,16 +12,24 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class UserController {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * This method perform a pause function in order to see result of the query
+     */
     public void pauseBeforeExit() {
         System.out.println("Enter something to return");
         String selector = scanner.next();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * receive all available users
+     */
     public void getUsers(UserService userService) {
         userServiceIsNull(userService);
         if (userService.getUsers().isEmpty()) {
@@ -30,6 +38,10 @@ public class UserController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * register new user in the system
+     */
     public void registerUser(UserService userService) {
         userServiceIsNull(userService);
         System.out.println("Enter username");
@@ -49,6 +61,10 @@ public class UserController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * edit existing user
+     */
     public void editUser(UserService userService) {
         userServiceIsNull(userService);
         if (userService.getUsers().isEmpty()) {
@@ -74,6 +90,10 @@ public class UserController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * remove existing user from the system
+     */
     public void removeUser(UserService userService) {
         userServiceIsNull(userService);
         if (userService.getUsers().isEmpty()) {
@@ -86,6 +106,10 @@ public class UserController {
         pauseBeforeExit();
     }
 
+    /**
+     * This method is an addition layer with scanner functionality
+     * check if carService is null
+     */
     public static void userServiceIsNull(UserService userService) {
         if (userService == null) {
             LOGGER.log(Level.SEVERE, "userService is null");

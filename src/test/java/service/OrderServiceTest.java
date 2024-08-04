@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class OrderServiceTest {
 

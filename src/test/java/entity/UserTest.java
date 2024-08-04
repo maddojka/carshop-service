@@ -10,6 +10,7 @@ import static com.soroko.carshop.entity.User.Role.MANAGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class UserTest {
 

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarServiceTest {
 
@@ -208,6 +209,4 @@ public class CarServiceTest {
     public void findCarByConditionAndPrice_isOk() {
         carService.findByConditionAndPrice("new", 1_000_000.0);
     }
-
-
 }
