@@ -46,4 +46,5 @@ public class Constants {
     public static final String LOGGER_NAVIGATION = "Logger navigation";
     public static final String TO_FILE = "Send logs to file";
     public static final String TO_CONSOLE = "Send logs to console";
+
 }
