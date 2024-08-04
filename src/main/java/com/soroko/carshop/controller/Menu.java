@@ -25,13 +25,18 @@ public class Menu {
     private final CarShopLogger carShopLogger = new CarShopLogger();
     private final Scanner sc = new Scanner(System.in);
 
-
+    /**
+     * Print auth menu
+     */
     public void printAuthMenu() {
         System.out.println(SELECT);
         System.out.println("1. " + SIGN_IN);
         System.out.println("2. " + ADD_USER);
     }
 
+    /**
+     * Register new user
+     */
     public void registerOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
             LOGGER.severe("userService is null or empty");
@@ -54,6 +59,9 @@ public class Menu {
         }
     }
 
+    /**
+     * User login process
+     */
     public boolean loginOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
             LOGGER.severe("userService is null or empty");
@@ -79,6 +87,9 @@ public class Menu {
         return false;
     }
 
+    /**
+     * Cars service selection
+     */
     public void printCarsMenu(CarService carService) {
         if (carService == null) {
             LOGGER.severe("CarService is null");
@@ -118,6 +129,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Order service selection
+     */
     public void printOrdersMenu(OrderService orderService,
                                 UserService userService,
                                 CarService carService) {
@@ -157,6 +171,9 @@ public class Menu {
         }
     }
 
+    /**
+     * User service selection
+     */
     public void printUsersMenu(UserService userService) {
         if (userService == null) {
             LOGGER.info("orderService is null");
@@ -184,6 +201,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Logger selection
+     */
     public void printLoggerMenu() {
         while (true) {
             if (isAdmin) {

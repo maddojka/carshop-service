@@ -35,7 +35,13 @@ public class CarShopManager {
         userService.addUser(manager);
     }
 
+    /**
+     * Launch program
+     */
     public void startCarShopLoop() {
+        /**
+         * Menu selection loop
+         */
         System.out.println(WELCOME_MESSAGE);
         while (true) {
             if (!isLoggedIn) {

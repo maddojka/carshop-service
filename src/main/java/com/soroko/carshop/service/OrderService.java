@@ -18,6 +18,9 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 public class OrderService {
     private final List<Order> orders = new ArrayList<>();
 
+    /**
+     * Add order to collection
+     */
     public void addOrder(Order order) {
         if (orders.contains(orders)) {
             LOGGER.warning("Order already exists");
@@ -31,6 +34,9 @@ public class OrderService {
         LOGGER.info("Order added");
     }
 
+    /**
+     * Get order by id
+     */
     public Order getOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
             LOGGER.severe("Invalid order id");
@@ -39,10 +45,16 @@ public class OrderService {
         return this.orders.get(id);
     }
 
+    /**
+     * Get all orders from collection
+     */
     public List<Order> getOrders() {
         return this.orders;
     }
 
+    /**
+     * Edit order by id
+     */
     public void editOrder(int id, Order order) {
         if (order == null || id < 0 || id >= this.orders.size()) {
             LOGGER.severe("Invalid order id or order is null");
@@ -53,6 +65,9 @@ public class OrderService {
         LOGGER.info("Order edited");
     }
 
+    /**
+     * Cancel order by id
+     */
     public void cancelOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
             LOGGER.severe("Id cannot be negative");
@@ -62,6 +77,9 @@ public class OrderService {
         LOGGER.info("Order cancelled");
     }
 
+    /**
+     * Complete order by id
+     */
     public void completeOrder(int id) {
         if (id < 0 || id >= this.orders.size()) {
             LOGGER.severe("Id cannot be negative");
@@ -71,6 +89,9 @@ public class OrderService {
         order.setStatus(Order.Status.COMPLETED);
     }
 
+    /**
+     * Find order by car model
+     */
     public List<Order> findByCarModel(String carName) {
         if (carName == null || carName.isEmpty()) {
             LOGGER.severe("Car is empty");
@@ -79,6 +100,9 @@ public class OrderService {
         return orders.stream().filter(x -> x.getCar().getModel().equals(carName)).toList();
     }
 
+    /**
+     * Find order by user
+     */
     public List<Order> findBy(User user) {
         if (user == null) {
             LOGGER.severe("User is empty");
@@ -87,6 +111,9 @@ public class OrderService {
         return orders.stream().filter(x -> x.getUser().getRole().equals(CLIENT)).toList();
     }
 
+    /**
+     * Find order by status
+     */
     public List<Order> findBy(String status) {
         if ("".equals(status) || status == null) {
             LOGGER.severe("Order is empty");
@@ -97,6 +124,9 @@ public class OrderService {
                 .toList();
     }
 
+    /**
+     * Find order by date
+     */
     public List<Order> findBy(LocalDate localDate) {
         if (localDate == null) {
             LOGGER.severe("LocalDate is empty");
