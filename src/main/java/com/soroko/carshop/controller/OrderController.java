@@ -9,43 +9,61 @@ import com.soroko.carshop.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.logging.Level;
 
 import static com.soroko.carshop.entity.Order.Status.*;
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class OrderController {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final OrderService orderService;
+    private final UserService userService;
+    private final CarService carService;
 
+    public OrderController(OrderService orderService, UserService userService, CarService carService) {
+        this.orderService = orderService;
+        this.userService = userService;
+        this.carService = carService;
+    }
+
+    /**
+     * This method perform a pause function in order to see result of the query
+     */
     public void pauseBeforeExit() {
         System.out.println("Enter something to return");
         String selector = scanner.next();
     }
 
-    public void getOrders(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * receive all available orders
+     */
+    public void getOrders() {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
         } else System.out.println(orderService.getOrders());
         pauseBeforeExit();
     }
 
-    public void getOrderByCarModel(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by car model
+     */
+    public void getOrderByCarModel() {
         System.out.println("Enter car model");
         String model = scanner.next();
         orderService.findByCarModel(model);
         pauseBeforeExit();
     }
 
-    public void getOrderByUser(OrderService orderService,
-                               UserService userService) {
-        orderServiceIsNull(orderService);
-        UserController.userServiceIsNull(userService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by user
+     */
+    public void getOrderByUser() {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
@@ -57,28 +75,33 @@ public class OrderController {
         pauseBeforeExit();
     }
 
-    public void getOrderByStatus(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by status
+     */
+    public void getOrderByStatus() {
         System.out.println("Enter status");
         String status = scanner.next();
         orderService.findBy(status);
         pauseBeforeExit();
     }
 
-    public void getOrderByDate(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * filter orders by date
+     */
+    public void getOrderByDate() {
         System.out.println("Enter date");
         LocalDate localDate = LocalDate.parse(scanner.next());
         orderService.findBy(localDate);
         pauseBeforeExit();
     }
 
-    public void createOrder(OrderService orderService,
-                            UserService userService,
-                            CarService carService) {
-        orderServiceIsNull(orderService);
-        UserController.userServiceIsNull(userService);
-        CarController.carServiceIsNull(carService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * create new order in the system
+     */
+    public void createOrder() {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;
@@ -98,12 +121,11 @@ public class OrderController {
         pauseBeforeExit();
     }
 
-    public void editOrder(OrderService orderService,
-                          UserService userService,
-                          CarService carService) {
-        orderServiceIsNull(orderService);
-        UserController.userServiceIsNull(userService);
-        CarController.carServiceIsNull(carService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * edit existing order in the system
+     */
+    public void editOrder() {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;
@@ -137,8 +159,11 @@ public class OrderController {
         pauseBeforeExit();
     }
 
-    public void cancelOrder(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * cancel existing order in the system
+     */
+    public void cancelOrder() {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
             return;
@@ -149,8 +174,11 @@ public class OrderController {
         pauseBeforeExit();
     }
 
-    public void completeOrder(OrderService orderService) {
-        orderServiceIsNull(orderService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * complete existing order in the system
+     */
+    public void completeOrder() {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
             return;
@@ -159,12 +187,5 @@ public class OrderController {
         int id = scanner.nextInt();
         orderService.completeOrder(id);
         pauseBeforeExit();
-    }
-
-    public static void orderServiceIsNull(OrderService orderService) {
-        if (orderService == null) {
-            LOGGER.log(Level.SEVERE, "orderService is null");
-            throw new IllegalArgumentException("orderService is null");
-        }
     }
 }

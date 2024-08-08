@@ -2,8 +2,12 @@ package com.soroko.carshop.constants;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class Constants {
+    /**
+     * All constants should be written here
+     */
     public static final String WELCOME_MESSAGE = "Welcome to CarShop!";
     public static final String SELECT = "Please select one of the following options:";
     public static final String SIGN_IN = "Sign in";
@@ -42,6 +46,5 @@ public class Constants {
     public static final String LOGGER_NAVIGATION = "Logger navigation";
     public static final String TO_FILE = "Send logs to file";
     public static final String TO_CONSOLE = "Send logs to console";
-
 
 }

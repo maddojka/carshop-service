@@ -8,6 +8,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class User {
     public static int USER_COUNT;
@@ -79,7 +80,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if("".equals(email) || email == null) {
+        if ("".equals(email) || email == null) {
             LOGGER.log(Level.SEVERE, "Email is empty");
             throw new IllegalArgumentException("Email is empty");
         }
@@ -91,7 +92,7 @@ public class User {
     }
 
     public void setNumberOfpurchases(int numberOfpurchases) {
-        if(numberOfpurchases < 0) {
+        if (numberOfpurchases < 0) {
             LOGGER.log(Level.SEVERE, "Number of purchases cannot be negative");
             throw new IllegalArgumentException("Number of purchases cannot be negative");
         }

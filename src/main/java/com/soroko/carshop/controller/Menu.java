@@ -6,7 +6,6 @@ import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
@@ -15,28 +14,40 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class Menu {
     private boolean isClient;
     private boolean isManager;
     private boolean isAdmin;
-    private final CarController carController = new CarController();
-    private final OrderController orderController = new OrderController();
-    private final UserController userController = new UserController();
+    private final CarController carController;
+    private final OrderController orderController;
+    private final UserController userController;
     private final CarShopLogger carShopLogger = new CarShopLogger();
     private final Scanner sc = new Scanner(System.in);
 
+    public Menu(CarController carController, OrderController orderController, UserController userController) {
+        this.carController = carController;
+        this.orderController = orderController;
+        this.userController = userController;
+    }
 
+    /**
+     * Print auth menu
+     */
     public void printAuthMenu() {
         System.out.println(SELECT);
         System.out.println("1. " + SIGN_IN);
         System.out.println("2. " + ADD_USER);
     }
 
+    /**
+     * Register new user
+     */
     public void registerOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
-            LOGGER.info("userService is null or empty");
-            return;
+            LOGGER.severe("userService is null or empty");
+            throw new IllegalArgumentException("userService is null or empty");
         }
         System.out.println(LOGIN);
         String login = sc.next();
@@ -55,9 +66,13 @@ public class Menu {
         }
     }
 
+    /**
+     * User login process
+     */
     public boolean loginOperation(UserService userService) {
         if (userService == null || userService.getUsers().isEmpty()) {
-            LOGGER.info("userService is null or empty");
+            LOGGER.severe("userService is null or empty");
+            throw new IllegalArgumentException("userService is null or empty");
         }
         System.out.println(LOGIN);
         String login = sc.next();
@@ -79,10 +94,13 @@ public class Menu {
         return false;
     }
 
+    /**
+     * Cars service selection
+     */
     public void printCarsMenu(CarService carService) {
         if (carService == null) {
-            LOGGER.info("CarService is null");
-            return;
+            LOGGER.severe("CarService is null");
+            throw new IllegalArgumentException("carService is null");
         }
         while (true) {
             System.out.println(CARS_NAVIGATION);
@@ -101,29 +119,32 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> carController.getCars(carService);
-                case 2 -> carController.getCarByMake(carService);
-                case 3 -> carController.getCarByModel(carService);
-                case 4 -> carController.getCarByYear(carService);
-                case 5 -> carController.getCarByPrice(carService);
-                case 6 -> carController.getCarByCondition(carService);
-                case 7 -> carController.getCarByConditionAndPrice(carService);
+                case 1 -> carController.getCars();
+                case 2 -> carController.getCarByMake();
+                case 3 -> carController.getCarByModel();
+                case 4 -> carController.getCarByYear();
+                case 5 -> carController.getCarByPrice();
+                case 6 -> carController.getCarByCondition();
+                case 7 -> carController.getCarByConditionAndPrice();
                 case 8 -> {
                     return;
                 }
-                case 9 -> carController.registerCar(carService);
-                case 10 -> carController.editCar(carService);
-                case 11 -> carController.removeCar(carService);
+                case 9 -> carController.registerCar();
+                case 10 -> carController.editCar();
+                case 11 -> carController.removeCar();
             }
         }
     }
 
+    /**
+     * Order service selection
+     */
     public void printOrdersMenu(OrderService orderService,
                                 UserService userService,
                                 CarService carService) {
-        if (orderService == null) {
-            LOGGER.info("orderService is null");
-            return;
+        if (orderService == null || userService == null || carService == null) {
+            LOGGER.info("Service is null");
+            throw new IllegalArgumentException("Service is null");
         }
         while (true) {
             if (isAdmin || isManager) {
@@ -141,15 +162,15 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> orderController.getOrders(orderService);
-                case 2 -> orderController.getOrderByCarModel(orderService);
-                case 3 -> orderController.getOrderByUser(orderService, userService);
-                case 4 -> orderController.getOrderByStatus(orderService);
-                case 5 -> orderController.getOrderByDate(orderService);
-                case 6 -> orderController.createOrder(orderService, userService, carService);
-                case 7 -> orderController.editOrder(orderService, userService, carService);
-                case 8 -> orderController.cancelOrder(orderService);
-                case 9 -> orderController.completeOrder(orderService);
+                case 1 -> orderController.getOrders();
+                case 2 -> orderController.getOrderByCarModel();
+                case 3 -> orderController.getOrderByUser();
+                case 4 -> orderController.getOrderByStatus();
+                case 5 -> orderController.getOrderByDate();
+                case 6 -> orderController.createOrder();
+                case 7 -> orderController.editOrder();
+                case 8 -> orderController.cancelOrder();
+                case 9 -> orderController.completeOrder();
                 case 10 -> {
                     return;
                 }
@@ -157,8 +178,14 @@ public class Menu {
         }
     }
 
+    /**
+     * User service selection
+     */
     public void printUsersMenu(UserService userService) {
-
+        if (userService == null) {
+            LOGGER.info("orderService is null");
+            throw new IllegalArgumentException("orderService is null");
+        }
         while (true) {
             if (isAdmin) {
                 System.out.println(USERS_NAVIGATION);
@@ -170,10 +197,10 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> userController.getUsers(userService);
-                case 2 -> userController.registerUser(userService);
-                case 3 -> userController.editUser(userService);
-                case 4 -> userController.removeUser(userService);
+                case 1 -> userController.getUsers();
+                case 2 -> userController.registerUser();
+                case 3 -> userController.editUser();
+                case 4 -> userController.removeUser();
                 case 5 -> {
                     return;
                 }
@@ -181,6 +208,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Logger selection
+     */
     public void printLoggerMenu() {
         while (true) {
             if (isAdmin) {

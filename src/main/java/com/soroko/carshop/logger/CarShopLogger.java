@@ -5,6 +5,7 @@ import java.util.logging.*;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarShopLogger {
     public static final Logger LOGGER = Logger.getGlobal();

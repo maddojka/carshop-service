@@ -4,34 +4,47 @@ import com.soroko.carshop.entity.User;
 import com.soroko.carshop.service.UserService;
 
 import java.util.Scanner;
-import java.util.logging.Level;
 
 import static com.soroko.carshop.entity.User.Role.ADMINISTRATOR;
 import static com.soroko.carshop.entity.User.Role.MANAGER;
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class UserController {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    /**
+     * This method perform a pause function in order to see result of the query
+     */
     public void pauseBeforeExit() {
         System.out.println("Enter something to return");
         String selector = scanner.next();
     }
 
-    public void getUsers(UserService userService) {
-        userServiceIsNull(userService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * receive all available users
+     */
+    public void getUsers() {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
         } else System.out.println(userService.getUsers());
         pauseBeforeExit();
     }
 
-    public void registerUser(UserService userService) {
-        userServiceIsNull(userService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * register new user in the system
+     */
+    public void registerUser() {
         System.out.println("Enter username");
         String username = scanner.next();
         System.out.println("Enter password");
@@ -49,8 +62,11 @@ public class UserController {
         pauseBeforeExit();
     }
 
-    public void editUser(UserService userService) {
-        userServiceIsNull(userService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * edit existing user
+     */
+    public void editUser() {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
@@ -74,8 +90,11 @@ public class UserController {
         pauseBeforeExit();
     }
 
-    public void removeUser(UserService userService) {
-        userServiceIsNull(userService);
+    /**
+     * This method is an addition layer with scanner functionality
+     * remove existing user from the system
+     */
+    public void removeUser() {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
@@ -84,12 +103,5 @@ public class UserController {
         int id = scanner.nextInt();
         userService.removeUser(id);
         pauseBeforeExit();
-    }
-
-    public static void userServiceIsNull(UserService userService) {
-        if (userService == null) {
-            LOGGER.log(Level.SEVERE,"userService is null");
-            throw new IllegalArgumentException(("userService is null"));
-        }
     }
 }

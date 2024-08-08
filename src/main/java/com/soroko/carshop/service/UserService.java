@@ -9,10 +9,15 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class UserService {
     private final List<User> users = new ArrayList<>();
 
+    /**
+     * Add user to collection
+     * @param user - user to add
+     */
     public void addUser(User user) {
         if (users.contains(user)) {
             LOGGER.warning("User already exists");
@@ -26,6 +31,11 @@ public class UserService {
         LOGGER.info("User was added");
     }
 
+    /**
+     * Get user by id
+     * @param id - id of the order to get
+     * @return user - requested User
+     */
     public User getUser(int id) {
         if (id < 0 || id >= this.users.size()) {
             LOGGER.severe("User not found");
@@ -34,10 +44,19 @@ public class UserService {
         return this.users.get(id);
     }
 
+    /**
+     * Get all users from collection
+     * @return List of the available cars
+     */
     public List<User> getUsers() {
         return this.users;
     }
 
+    /**
+     * Edit user by id
+     * @param id - id of the order to edit
+     * @param user - form of the user to edit
+     */
     public void editUser(int id, User user) {
         if (user == null || id < 0 || id >= this.users.size()) {
             LOGGER.severe("User not found");
@@ -51,6 +70,10 @@ public class UserService {
         LOGGER.info("User was edited");
     }
 
+    /**
+     * Remove user by id
+     * @param id - id of the user to remove from the collection
+     */
     public void removeUser(int id) {
         if (id < 0 || id >= this.users.size()) {
             LOGGER.severe("Id cannot be negative");

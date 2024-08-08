@@ -1,19 +1,19 @@
 package com.soroko.carshop.controller;
 
 import com.soroko.carshop.entity.User;
-import com.soroko.carshop.logger.CarShopLogger;
 import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
-import static com.soroko.carshop.entity.User.Role.*;
+import static com.soroko.carshop.entity.User.Role.ADMINISTRATOR;
+import static com.soroko.carshop.entity.User.Role.MANAGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class CarShopManager {
     private final Menu menu;
@@ -23,20 +23,27 @@ public class CarShopManager {
     private final Scanner scanner;
     private boolean isLoggedIn = false;
 
-
     public CarShopManager() {
         scanner = new Scanner(System.in);
         User admin = new User("admin", "123", "admin@gmail.com", ADMINISTRATOR);
         User manager = new User("manager", "456", "manager@gmail.com", MANAGER);
-        menu = new Menu();
         carService = new CarService();
         orderService = new OrderService();
         userService = new UserService();
+        menu = new Menu(new CarController(carService),
+                new OrderController(orderService, userService, carService),
+                new UserController(userService));
         userService.addUser(admin);
         userService.addUser(manager);
     }
 
+    /**
+     * Launch program
+     */
     public void startCarShopLoop() {
+        /**
+         * Menu selection loop
+         */
         System.out.println(WELCOME_MESSAGE);
         while (true) {
             if (!isLoggedIn) {

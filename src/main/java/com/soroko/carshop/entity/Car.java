@@ -8,6 +8,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public class Car {
     public static int CAR_COUNT;
