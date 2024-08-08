@@ -4,6 +4,7 @@ import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 public class OrderTest {
 
     @Test
+    @DisplayName("Check null user exception")
     public void Order_null_User() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Order order = new Order(null, new Car(), Order.Status.IN_PROGRESS);
@@ -21,6 +23,7 @@ public class OrderTest {
     }
 
     @Test
+    @DisplayName("Check null car exception")
     public void Order_null_Car() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Order order = new Order(new User(), null, Order.Status.IN_PROGRESS);
@@ -28,6 +31,7 @@ public class OrderTest {
     }
 
     @Test
+    @DisplayName("Check null status exception")
     public void Order_null_Status() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Order order = new Order(new User(), new Car(), null);
@@ -35,6 +39,7 @@ public class OrderTest {
     }
 
     @Test
+    @DisplayName("Check order is OK")
     public void Order_is_Ok() {
         Order order = new Order(new User(), new Car(), Order.Status.IN_PROGRESS);
         order.setStatus(Order.Status.COMPLETED);

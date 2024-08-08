@@ -27,10 +27,12 @@ public class CarShopManager {
         scanner = new Scanner(System.in);
         User admin = new User("admin", "123", "admin@gmail.com", ADMINISTRATOR);
         User manager = new User("manager", "456", "manager@gmail.com", MANAGER);
-        menu = new Menu();
         carService = new CarService();
         orderService = new OrderService();
         userService = new UserService();
+        menu = new Menu(new CarController(carService),
+                new OrderController(orderService, userService, carService),
+                new UserController(userService));
         userService.addUser(admin);
         userService.addUser(manager);
     }

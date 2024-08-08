@@ -1,7 +1,11 @@
 package controller;
 
+import com.soroko.carshop.controller.CarController;
 import com.soroko.carshop.controller.Menu;
+import com.soroko.carshop.controller.OrderController;
+import com.soroko.carshop.controller.UserController;
 import com.soroko.carshop.service.CarService;
+import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +17,13 @@ import org.junit.jupiter.api.Test;
  */
 public class MenuTest {
 
-    private Menu menu = new Menu();
+    private Menu menu;
 
     @BeforeEach
     void setUp() {
-        menu = new Menu();
+        menu = new Menu(new CarController(new CarService()),
+                new OrderController(new OrderService(), new UserService(), new CarService()),
+                new UserController(new UserService()));;
     }
 
     @Test
@@ -54,7 +60,6 @@ public class MenuTest {
 
     @Test
     public void testMenu() {
-        Menu menu = new Menu();
         menu.isAdmin();
         menu.isClient();
         menu.isManager();

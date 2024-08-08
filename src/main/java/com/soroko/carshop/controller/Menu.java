@@ -20,11 +20,17 @@ public class Menu {
     private boolean isClient;
     private boolean isManager;
     private boolean isAdmin;
-    private final CarController carController = new CarController();
-    private final OrderController orderController = new OrderController();
-    private final UserController userController = new UserController();
+    private final CarController carController;
+    private final OrderController orderController;
+    private final UserController userController;
     private final CarShopLogger carShopLogger = new CarShopLogger();
     private final Scanner sc = new Scanner(System.in);
+
+    public Menu(CarController carController, OrderController orderController, UserController userController) {
+        this.carController = carController;
+        this.orderController = orderController;
+        this.userController = userController;
+    }
 
     /**
      * Print auth menu
@@ -113,19 +119,19 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> carController.getCars(carService);
-                case 2 -> carController.getCarByMake(carService);
-                case 3 -> carController.getCarByModel(carService);
-                case 4 -> carController.getCarByYear(carService);
-                case 5 -> carController.getCarByPrice(carService);
-                case 6 -> carController.getCarByCondition(carService);
-                case 7 -> carController.getCarByConditionAndPrice(carService);
+                case 1 -> carController.getCars();
+                case 2 -> carController.getCarByMake();
+                case 3 -> carController.getCarByModel();
+                case 4 -> carController.getCarByYear();
+                case 5 -> carController.getCarByPrice();
+                case 6 -> carController.getCarByCondition();
+                case 7 -> carController.getCarByConditionAndPrice();
                 case 8 -> {
                     return;
                 }
-                case 9 -> carController.registerCar(carService);
-                case 10 -> carController.editCar(carService);
-                case 11 -> carController.removeCar(carService);
+                case 9 -> carController.registerCar();
+                case 10 -> carController.editCar();
+                case 11 -> carController.removeCar();
             }
         }
     }
@@ -156,15 +162,15 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> orderController.getOrders(orderService);
-                case 2 -> orderController.getOrderByCarModel(orderService);
-                case 3 -> orderController.getOrderByUser(orderService, userService);
-                case 4 -> orderController.getOrderByStatus(orderService);
-                case 5 -> orderController.getOrderByDate(orderService);
-                case 6 -> orderController.createOrder(orderService, userService, carService);
-                case 7 -> orderController.editOrder(orderService, userService, carService);
-                case 8 -> orderController.cancelOrder(orderService);
-                case 9 -> orderController.completeOrder(orderService);
+                case 1 -> orderController.getOrders();
+                case 2 -> orderController.getOrderByCarModel();
+                case 3 -> orderController.getOrderByUser();
+                case 4 -> orderController.getOrderByStatus();
+                case 5 -> orderController.getOrderByDate();
+                case 6 -> orderController.createOrder();
+                case 7 -> orderController.editOrder();
+                case 8 -> orderController.cancelOrder();
+                case 9 -> orderController.completeOrder();
                 case 10 -> {
                     return;
                 }
@@ -191,10 +197,10 @@ public class Menu {
             }
             int selector = sc.nextInt();
             switch (selector) {
-                case 1 -> userController.getUsers(userService);
-                case 2 -> userController.registerUser(userService);
-                case 3 -> userController.editUser(userService);
-                case 4 -> userController.removeUser(userService);
+                case 1 -> userController.getUsers();
+                case 2 -> userController.registerUser();
+                case 3 -> userController.editUser();
+                case 4 -> userController.removeUser();
                 case 5 -> {
                     return;
                 }
