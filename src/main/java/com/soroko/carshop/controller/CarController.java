@@ -3,6 +3,7 @@ package com.soroko.carshop.controller;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.service.CarService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * receive all available cars
      */
-    public void getCars() {
+    public void getCars() throws SQLException {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
         } else System.out.println(carService.getCars());
@@ -41,7 +42,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by make
      */
-    public void getCarByMake() {
+    public void getCarByMake() throws SQLException {
         System.out.println("Enter the make you search");
         String make = scanner.next();
         System.out.println(carService.findAndSortBy(make));
@@ -52,7 +53,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by model
      */
-    public void getCarByModel() {
+    public void getCarByModel() throws SQLException {
         System.out.println("Enter the model you search");
         String model = scanner.next();
         System.out.println(carService.findByModel(model));
@@ -63,7 +64,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by year
      */
-    public void getCarByYear() {
+    public void getCarByYear() throws SQLException {
         System.out.println("Enter the year you search");
         int year = scanner.nextInt();
         System.out.println(carService.findAndSortBy(year));
@@ -74,7 +75,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by price
      */
-    public void getCarByPrice() {
+    public void getCarByPrice() throws SQLException {
         System.out.println("Enter the price you search");
         double price = scanner.nextDouble();
         System.out.println(carService.findAndSortBy(price));
@@ -85,7 +86,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by condition
      */
-    public void getCarByCondition() {
+    public void getCarByCondition() throws SQLException {
         System.out.println("Enter the condition you search");
         String condition = scanner.next();
         System.out.println(carService.findByCondition(condition));
@@ -96,7 +97,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * filter cars by condition and price
      */
-    public void getCarByConditionAndPrice() {
+    public void getCarByConditionAndPrice() throws SQLException {
         System.out.println("Enter the condition you search");
         String condition = scanner.next();
         System.out.println("Enter the price you search");
@@ -109,7 +110,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * register new car in the system
      */
-    public void registerCar() {
+    public void registerCar() throws SQLException {
         System.out.println("Enter the year of the car");
         int year = scanner.nextInt();
         System.out.println("Enter the price of the car");
@@ -129,7 +130,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * edit existing car
      */
-    public void editCar() {
+    public void editCar() throws SQLException {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;
@@ -147,7 +148,8 @@ public class CarController {
         System.out.println("Enter the condition of the car");
         String condition = scanner.next();
         Car car = new Car(make, model, year, price, condition);
-        carService.editCar(id, car);
+        car.setId(id);
+        carService.editCar(car);
         pauseBeforeExit();
 
     }
@@ -156,7 +158,7 @@ public class CarController {
      * This method is an addition layer with scanner functionality
      * remove car from the system
      */
-    public void removeCar() {
+    public void removeCar() throws SQLException {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;

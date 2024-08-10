@@ -1,6 +1,5 @@
-package controller;
+package com.soroko.carshop.controller;
 
-import com.soroko.carshop.controller.CarController;
 import com.soroko.carshop.service.CarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.SQLException;
 
 /**
  * @author yuriy.soroko
@@ -19,7 +19,7 @@ public class CarControllerTest {
     private CarService carService;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         carController = new CarController(new CarService());
         carService = new CarService();
     }

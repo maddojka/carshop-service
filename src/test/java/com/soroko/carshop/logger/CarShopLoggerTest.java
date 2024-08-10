@@ -1,6 +1,5 @@
-package logger;
+package com.soroko.carshop.logger;
 
-import com.soroko.carshop.logger.CarShopLogger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

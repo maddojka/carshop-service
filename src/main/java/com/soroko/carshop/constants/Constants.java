@@ -46,5 +46,8 @@ public class Constants {
     public static final String LOGGER_NAVIGATION = "Logger navigation";
     public static final String TO_FILE = "Send logs to file";
     public static final String TO_CONSOLE = "Send logs to console";
+    public static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    public static final String DB_USERNAME = "postgres";
+    public static final String DB_PASSWORD = "123";
 
 }

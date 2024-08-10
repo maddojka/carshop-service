@@ -1,5 +1,8 @@
 package com.soroko.carshop.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -10,13 +13,20 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Getter
+@Setter
 public class User {
-    public static int USER_COUNT;
-    private int userId;
+
+    private int id;
+
     private String username;
+
     private String password;
+
     private String email;
+
     private int numberOfpurchases;
+
     private Role role;
 
     public User(String username, String password, String email, int numberOfpurchases, Role role) {
@@ -28,7 +38,6 @@ public class User {
             LOGGER.log(Level.SEVERE, "Password is empty");
             throw new IllegalArgumentException("Password is empty");
         }
-        this.userId = USER_COUNT++;
         this.username = username;
         this.password = password;
         setEmail(email);
@@ -59,26 +68,6 @@ public class User {
     public User() {
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         if ("".equals(email) || email == null) {
             LOGGER.log(Level.SEVERE, "Email is empty");
@@ -87,20 +76,12 @@ public class User {
         this.email = email;
     }
 
-    public int getNumberOfpurchases() {
-        return numberOfpurchases;
-    }
-
     public void setNumberOfpurchases(int numberOfpurchases) {
         if (numberOfpurchases < 0) {
             LOGGER.log(Level.SEVERE, "Number of purchases cannot be negative");
             throw new IllegalArgumentException("Number of purchases cannot be negative");
         }
         this.numberOfpurchases = numberOfpurchases;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public void setRole(Role role) {

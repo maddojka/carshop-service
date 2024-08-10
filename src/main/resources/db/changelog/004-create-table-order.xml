@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="004-create-table-order" author="soroko">
+        <createSequence dataType="int"
+                        incrementBy="1"
+                        minValue="1"
+                        schemaName="carshop"
+                        sequenceName="orders_sequence"
+                        startValue="1"/>
+        <createTable tableName="tb_orders" schemaName="carshop">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_id" references="carshop.tb_users(id)"/>
+            </column>
+            <column name="car_id" type="BIGINT">
+                <constraints foreignKeyName="fk_car_id" references="carshop.tb_cars(id)"/>
+            </column>
+            <column name="status" type="varchar(255)"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

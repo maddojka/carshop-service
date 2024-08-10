@@ -7,6 +7,7 @@ import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * receive all available orders
      */
-    public void getOrders() {
+    public void getOrders() throws SQLException {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
         } else System.out.println(orderService.getOrders());
@@ -52,7 +53,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * filter orders by car model
      */
-    public void getOrderByCarModel() {
+    public void getOrderByCarModel() throws SQLException {
         System.out.println("Enter car model");
         String model = scanner.next();
         orderService.findByCarModel(model);
@@ -63,7 +64,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * filter orders by user
      */
-    public void getOrderByUser() {
+    public void getOrderByUser() throws SQLException {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
@@ -79,7 +80,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * filter orders by status
      */
-    public void getOrderByStatus() {
+    public void getOrderByStatus() throws SQLException {
         System.out.println("Enter status");
         String status = scanner.next();
         orderService.findBy(status);
@@ -90,7 +91,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * filter orders by date
      */
-    public void getOrderByDate() {
+    public void getOrderByDate() throws SQLException {
         System.out.println("Enter date");
         LocalDate localDate = LocalDate.parse(scanner.next());
         orderService.findBy(localDate);
@@ -101,7 +102,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * create new order in the system
      */
-    public void createOrder() {
+    public void createOrder() throws SQLException {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;
@@ -117,6 +118,7 @@ public class OrderController {
         Car car = carService.getCar(id);
         User user = userService.getUser(userId);
         Order order = new Order(user, car, CREATED);
+        order.setId(id);
         orderService.addOrder(order);
         pauseBeforeExit();
     }
@@ -125,7 +127,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * edit existing order in the system
      */
-    public void editOrder() {
+    public void editOrder() throws SQLException {
         if (carService.getCars().isEmpty()) {
             System.out.println("No cars found");
             return;
@@ -155,7 +157,7 @@ public class OrderController {
         } else if (status.equalsIgnoreCase("completed")) {
             order.setStatus(COMPLETED);
         }
-        orderService.editOrder(carId, order);
+        orderService.editOrder(order);
         pauseBeforeExit();
     }
 
@@ -163,7 +165,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * cancel existing order in the system
      */
-    public void cancelOrder() {
+    public void cancelOrder() throws SQLException {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
             return;
@@ -178,7 +180,7 @@ public class OrderController {
      * This method is an addition layer with scanner functionality
      * complete existing order in the system
      */
-    public void completeOrder() {
+    public void completeOrder() throws SQLException {
         if (orderService.getOrders().isEmpty()) {
             System.out.println("No orders found");
             return;

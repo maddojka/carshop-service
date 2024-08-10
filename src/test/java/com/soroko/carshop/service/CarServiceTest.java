@@ -1,11 +1,12 @@
-package service;
+package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.Car;
-import com.soroko.carshop.service.CarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 /**
  * @author yuriy.soroko
@@ -16,7 +17,7 @@ public class CarServiceTest {
     private CarService carService;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SQLException {
         carService = new CarService();
     }
 
@@ -29,7 +30,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check add car method - car is not null")
-    public void addCar_isNotNull() {
+    public void addCar_isNotNull() throws SQLException {
         Car car = new Car();
         carService.addCar(car);
     }
@@ -50,7 +51,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check get car method - car id is OK")
-    public void getCar_correctId() {
+    public void getCar_correctId() throws SQLException {
         Car car = new Car();
         carService.getCars().add(car);
         carService.getCar(0);
@@ -60,23 +61,23 @@ public class CarServiceTest {
     @DisplayName("Check edit car method - car id is negative")
     public void editCar_NegativeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                carService.editCar(-1, new Car()));
+                carService.editCar(new Car()));
     }
 
     @Test
     @DisplayName("Check edit car method - car id is oversized")
     public void editCar_OversizeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                carService.editCar(Integer.MAX_VALUE, new Car()));
+                carService.editCar(new Car()));
     }
 
     @Test
     @DisplayName("Check edit car method - car id is OK")
-    public void editCar_correctId() {
+    public void editCar_correctId() throws SQLException {
         Car car =
                 new Car("Lada", "Granta", 2010, 1_000_000, "new");
         carService.getCars().add(car);
-        carService.editCar(0, car);
+        carService.editCar(car);
     }
 
     @Test
@@ -95,7 +96,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check sell car method - car id is OK")
-    public void sellCar_correctId() {
+    public void sellCar_correctId() throws SQLException {
         Car car =
                 new Car("Lada", "Granta", 2010, 1_000_000, "new");
         carService.getCars().add(car);
@@ -120,7 +121,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find and sort car by make - make is OK")
-    public void findAndSortCarByMake_isOk() {
+    public void findAndSortCarByMake_isOk() throws SQLException {
         carService.findByModel("Lada");
     }
 
@@ -142,7 +143,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find car by model method - model is OK")
-    public void findACarByModel_isOk() {
+    public void findACarByModel_isOk() throws SQLException {
         carService.findByModel("Granta");
     }
 
@@ -164,7 +165,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find and sort car by year method - year is OK")
-    public void findAndSortCarByYear_isOk() {
+    public void findAndSortCarByYear_isOk() throws SQLException {
         Car car =
                 new Car("Lada", "Granta", 2024, 1_000_000, "new");
         carService.getCars().add(car);
@@ -181,7 +182,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find and sorth car by price method - price is OK")
-    public void findAndSortCarByPrice_isOk() {
+    public void findAndSortCarByPrice_isOk() throws SQLException {
         Car car =
                 new Car("Lada", "Granta", 2024, 1_000_000, "new");
         carService.getCars().add(car);
@@ -206,7 +207,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find and sort car by condition method - condition is OK")
-    public void findAndSortCarByCondition_isOk() {
+    public void findAndSortCarByCondition_isOk() throws SQLException {
         carService.findByCondition("new");
     }
 
@@ -236,7 +237,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Check find car by condition and price method - price is OK")
-    public void findCarByConditionAndPrice_isOk() {
+    public void findCarByConditionAndPrice_isOk() throws SQLException {
         carService.findByConditionAndPrice("new", 1_000_000.0);
     }
 }

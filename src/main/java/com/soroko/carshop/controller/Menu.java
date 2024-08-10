@@ -6,6 +6,7 @@ import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
@@ -44,7 +45,7 @@ public class Menu {
     /**
      * Register new user
      */
-    public void registerOperation(UserService userService) {
+    public void registerOperation(UserService userService) throws SQLException {
         if (userService == null || userService.getUsers().isEmpty()) {
             LOGGER.severe("userService is null or empty");
             throw new IllegalArgumentException("userService is null or empty");
@@ -69,7 +70,7 @@ public class Menu {
     /**
      * User login process
      */
-    public boolean loginOperation(UserService userService) {
+    public boolean loginOperation(UserService userService) throws SQLException {
         if (userService == null || userService.getUsers().isEmpty()) {
             LOGGER.severe("userService is null or empty");
             throw new IllegalArgumentException("userService is null or empty");
@@ -95,9 +96,9 @@ public class Menu {
     }
 
     /**
-     * Cars service selection
+     * Cars com.soroko.carshop.service selection
      */
-    public void printCarsMenu(CarService carService) {
+    public void printCarsMenu(CarService carService) throws SQLException {
         if (carService == null) {
             LOGGER.severe("CarService is null");
             throw new IllegalArgumentException("carService is null");
@@ -137,11 +138,11 @@ public class Menu {
     }
 
     /**
-     * Order service selection
+     * Order com.soroko.carshop.service selection
      */
     public void printOrdersMenu(OrderService orderService,
                                 UserService userService,
-                                CarService carService) {
+                                CarService carService) throws SQLException {
         if (orderService == null || userService == null || carService == null) {
             LOGGER.info("Service is null");
             throw new IllegalArgumentException("Service is null");
@@ -179,9 +180,9 @@ public class Menu {
     }
 
     /**
-     * User service selection
+     * User com.soroko.carshop.service selection
      */
-    public void printUsersMenu(UserService userService) {
+    public void printUsersMenu(UserService userService) throws SQLException {
         if (userService == null) {
             LOGGER.info("orderService is null");
             throw new IllegalArgumentException("orderService is null");

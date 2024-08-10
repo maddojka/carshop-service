@@ -1,46 +1,40 @@
 package com.soroko.carshop.controller;
 
-import com.soroko.carshop.entity.User;
 import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.constants.Constants.*;
-import static com.soroko.carshop.entity.User.Role.ADMINISTRATOR;
-import static com.soroko.carshop.entity.User.Role.MANAGER;
 
 /**
  * @author yuriy.soroko
  * @version 1.0
  */
 public class CarShopManager {
-    private final Menu menu;
-    private final CarService carService;
-    private final OrderService orderService;
-    private final UserService userService;
+    private Menu menu;
+    private CarService carService;
+    private OrderService orderService;
+    private UserService userService;
     private final Scanner scanner;
     private boolean isLoggedIn = false;
 
-    public CarShopManager() {
+    public CarShopManager() throws SQLException {
         scanner = new Scanner(System.in);
-        User admin = new User("admin", "123", "admin@gmail.com", ADMINISTRATOR);
-        User manager = new User("manager", "456", "manager@gmail.com", MANAGER);
         carService = new CarService();
         orderService = new OrderService();
         userService = new UserService();
         menu = new Menu(new CarController(carService),
                 new OrderController(orderService, userService, carService),
                 new UserController(userService));
-        userService.addUser(admin);
-        userService.addUser(manager);
     }
 
     /**
      * Launch program
      */
-    public void startCarShopLoop() {
+    public void startCarShopLoop() throws SQLException {
         /**
          * Menu selection loop
          */
@@ -70,6 +64,7 @@ public class CarShopManager {
                 }
                 System.out.println("5. " + EXIT);
                 int adminSelector = scanner.nextInt();
+
                 switch (adminSelector) {
                     case 1 -> menu.printCarsMenu(carService);
                     case 2 -> menu.printOrdersMenu(orderService, userService, carService);
