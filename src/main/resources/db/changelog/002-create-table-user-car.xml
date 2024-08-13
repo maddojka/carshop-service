@@ -50,5 +50,50 @@
             <column name="number_of_purchases" type="BIGINT"/>
             <column name="role" type="VARCHAR(255)"/>
         </createTable>
+        <setColumnRemarks
+                columnName="username"
+                remarks="User name"
+                schemaName="carshop"
+                tableName="tb_users"/>
+        <setColumnRemarks
+                columnName="password"
+                remarks="User password"
+                schemaName="carshop"
+                tableName="tb_users"/>
+        <setColumnRemarks
+                columnName="email"
+                remarks="User email"
+                schemaName="carshop"
+                tableName="tb_users"/>
+        <setColumnRemarks
+                columnName="number_of_purchases"
+                remarks="User's amount of purchases"
+                schemaName="carshop"
+                tableName="tb_users"/>
+        <setColumnRemarks
+                columnName="make"
+                remarks="Make of the car"
+                schemaName="carshop"
+                tableName="tb_cars"/>
+        <setColumnRemarks
+                columnName="model"
+                remarks="Model of the car"
+                schemaName="carshop"
+                tableName="tb_cars"/>
+        <setColumnRemarks
+                columnName="year"
+                remarks="Year of the car"
+                schemaName="carshop"
+                tableName="tb_cars"/>
+        <setColumnRemarks
+                columnName="price"
+                remarks="Price of the car"
+                schemaName="carshop"
+                tableName="tb_cars"/>
+        <setColumnRemarks
+                columnName="condition"
+                remarks="Condition of the car"
+                schemaName="carshop"
+                tableName="tb_cars"/>
     </changeSet>
 </databaseChangeLog>

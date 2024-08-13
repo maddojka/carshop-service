@@ -4,6 +4,7 @@ import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.OrderRepository;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -20,7 +21,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 public class OrderService {
     private final OrderRepository orderRepository = new OrderRepository();
 
-    public OrderService() throws SQLException {
+    public OrderService() throws SQLException, IOException {
     }
 
     /**

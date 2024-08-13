@@ -6,6 +6,7 @@ import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.jdbc.DatabaseConnection;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class OrderRepository extends Repository<Order, Integer> {
     private final UserRepository userRepository = new UserRepository();
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public OrderRepository() throws SQLException {
+    public OrderRepository() throws SQLException, IOException {
     }
 
     public List<Order> getAllOrders() throws SQLException {

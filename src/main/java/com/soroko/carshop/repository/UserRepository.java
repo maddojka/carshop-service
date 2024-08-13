@@ -3,6 +3,7 @@ package com.soroko.carshop.repository;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.jdbc.DatabaseConnection;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class UserRepository extends Repository<User, Integer> {
 
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public UserRepository() throws SQLException {
+    public UserRepository() throws SQLException, IOException {
     }
 
     public List<User> getAllUsers() throws SQLException {

@@ -3,6 +3,7 @@ package com.soroko.carshop.service;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.repository.CarRepository;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -19,7 +20,7 @@ public class CarService {
 
     private final CarRepository carRepository = new CarRepository();
 
-    public CarService() throws SQLException {
+    public CarService() throws SQLException, IOException {
     }
 
     /**

@@ -4,6 +4,7 @@ import com.soroko.carshop.service.CarService;
 import com.soroko.carshop.service.OrderService;
 import com.soroko.carshop.service.UserService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class CarShopManager {
     private final Scanner scanner;
     private boolean isLoggedIn = false;
 
-    public CarShopManager() throws SQLException {
+    public CarShopManager() throws SQLException, IOException {
         scanner = new Scanner(System.in);
         carService = new CarService();
         orderService = new OrderService();

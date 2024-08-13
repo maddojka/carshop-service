@@ -27,5 +27,25 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <setColumnRemarks
+                columnName="user_id"
+                remarks="User id of the order"
+                schemaName="carshop"
+                tableName="tb_orders"/>
+        <setColumnRemarks
+                columnName="car_id"
+                remarks="Car id of the order"
+                schemaName="carshop"
+                tableName="tb_orders"/>
+        <setColumnRemarks
+                columnName="status"
+                remarks="Status of the order"
+                schemaName="carshop"
+                tableName="tb_orders"/>
+        <setColumnRemarks
+                columnName="created_at"
+                remarks="Date of order creation"
+                schemaName="carshop"
+                tableName="tb_orders"/>
     </changeSet>
 </databaseChangeLog>

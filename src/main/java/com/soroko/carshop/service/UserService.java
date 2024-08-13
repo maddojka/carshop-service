@@ -3,6 +3,7 @@ package com.soroko.carshop.service;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.UserRepository;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 public class UserService {
     private final UserRepository userRepository = new UserRepository();
 
-    public UserService() throws SQLException {
+    public UserService() throws SQLException, IOException {
     }
 
     /**

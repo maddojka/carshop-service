@@ -7,7 +7,10 @@
         logicalFilePath="db/changelog.xml">
     <changeSet id="001-create-schema" author="soroko">
         <sql dbms="postgresql" endDelimiter=";">
-            CREATE SCHEMA carshop
+            CREATE SCHEMA IF NOT EXISTS carshop
         </sql>
+      <!--  <sql dbms="postgresql" endDelimiter=";">
+            CREATE SCHEMA IF NOT EXISTS service
+        </sql>-->
     </changeSet>
 </databaseChangeLog>

@@ -3,6 +3,7 @@ package com.soroko.carshop.repository;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.jdbc.DatabaseConnection;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class CarRepository extends Repository<Car, Integer> {
 
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public CarRepository() throws SQLException {
+    public CarRepository() throws SQLException, IOException {
     }
 
     public List<Car> getAllCars() throws SQLException {
