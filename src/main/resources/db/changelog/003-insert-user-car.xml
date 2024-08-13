@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="003-insert-user-car" author="soroko">
+        <insert tableName="tb_cars" schemaName="carshop">
+            <column name="id" valueSequenceNext="cars_sequence"/>
+            <column name="make" value="Audi"/>
+            <column name="model" value="A4"/>
+            <column name="year" value="2010"/>
+            <column name="price" value="1500000.0"/>
+            <column name="condition" value="used"/>
+        </insert>
+        <insert tableName="tb_users" schemaName="carshop">
+            <column name="id" valueSequenceNext="users_sequence"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="123"/>
+            <column name="email" value="admin@gmail.com"/>
+            <column name="number_of_purchases" value="0"/>
+            <column name="role" value="ADMINISTRATOR"/>
+        </insert>
+        <insert tableName="tb_users" schemaName="carshop">
+            <column name="id" valueSequenceNext="users_sequence"/>
+            <column name="username" value="manager"/>
+            <column name="password" value="456"/>
+            <column name="email" value="manager@gmail.com"/>
+            <column name="number_of_purchases" value="0"/>
+            <column name="role" value="ADMINISTRATOR"/>
+        </insert>
+        <insert tableName="tb_users" schemaName="carshop">
+            <column name="id" valueSequenceNext="users_sequence"/>
+            <column name="username" value="user01"/>
+            <column name="password" value="123"/>
+            <column name="email" value="user01@gmail.com"/>
+            <column name="number_of_purchases" value="2"/>
+            <column name="role" value="CLIENT"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,14 +1,14 @@
-package service;
+package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
-import com.soroko.carshop.service.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +20,7 @@ public class OrderServiceTest {
     private OrderService orderService;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         orderService = new OrderService();
     }
 
@@ -33,7 +33,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check add order method - order is OK")
-    public void addOrder_isNotNull() {
+    public void addOrder_isNotNull() throws SQLException {
         Order order = new Order();
         orderService.addOrder(order);
     }
@@ -54,7 +54,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check get order method - order is OK")
-    public void getOrder_correctId() {
+    public void getOrder_correctId() throws SQLException {
         Order order = new Order();
         orderService.getOrders().add(order);
         orderService.getOrder(0);
@@ -64,24 +64,24 @@ public class OrderServiceTest {
     @DisplayName("Check edit order method - order is negative")
     public void editOrder_NegativeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                orderService.editOrder(-1, new Order()));
+                orderService.editOrder(new Order()));
     }
 
     @Test
     @DisplayName("Check edit order method - otder is oversized")
     public void editOrder_OversizeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                orderService.editOrder(Integer.MAX_VALUE, new Order()));
+                orderService.editOrder(new Order()));
     }
 
     @Test
     @DisplayName("Check edit order method - order is OK")
-    public void editOrder_correctId() {
+    public void editOrder_correctId() throws SQLException {
         Car car = new Car();
         User user = new User();
         Order order = new Order(user, car, Order.Status.CREATED);
         orderService.getOrders().add(order);
-        orderService.editOrder(0, order);
+        orderService.editOrder(order);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check cancel order method - order is OK")
-    public void cancelOrder_correctId() {
+    public void cancelOrder_correctId() throws SQLException {
         Car car = new Car();
         User user = new User();
         Order order = new Order(user, car, Order.Status.CREATED);
@@ -124,7 +124,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check complete order method - order is OK")
-    public void completeOrder_correctId() {
+    public void completeOrder_correctId() throws SQLException {
         Order order = new Order();
         orderService.getOrders().add(order);
         orderService.completeOrder(0);
@@ -148,7 +148,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check find order by car name method - car is OK")
-    public void findByCarName_isOk() {
+    public void findByCarName_isOk() throws SQLException {
         orderService.findByCarModel("Lada");
     }
 
@@ -162,7 +162,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check find by user method - user is OK")
-    public void findByUser_isOk() {
+    public void findByUser_isOk() throws SQLException {
         orderService.findBy(new User());
     }
 
@@ -184,7 +184,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check find order by status method - status is OK")
-    public void findByStatus_isOk() {
+    public void findByStatus_isOk() throws SQLException {
         orderService.findBy("CREATED");
     }
 
@@ -198,7 +198,7 @@ public class OrderServiceTest {
 
     @Test
     @DisplayName("Check find order by date method - date is OK")
-    public void findByDate_isOk() {
+    public void findByDate_isOk() throws SQLException {
         orderService.findBy(LocalDate.now());
     }
 }

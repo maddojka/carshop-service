@@ -12,32 +12,87 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.liquibase.version>4.17.2</org.liquibase.version>
+        <postgresql.version>42.7.3</postgresql.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
+        <postgres-testcontainers.version>1.19.8</postgres-testcontainers.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <slf4j-simple.version>2.0.9</slf4j-simple.version>
+        <lombok.version>1.18.32</lombok.version>
+        <junit.version>4.13.1</junit.version>
+        <org.junit.jupiter.version>RELEASE</org.junit.jupiter.version>
+        <jacoco.version>0.8.12</jacoco.version>
+        <com.github.stefanbirkner.version>1.2.1</com.github.stefanbirkner.version>
+        <commons-configuration.version>1.6</commons-configuration.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>${org.junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.12</version>
+            <version>${jacoco.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.stefanbirkner</groupId>
             <artifactId>system-lambda</artifactId>
-            <version>1.2.1</version>
+            <version>${com.github.stefanbirkner.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${org.liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres-testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons-configuration.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

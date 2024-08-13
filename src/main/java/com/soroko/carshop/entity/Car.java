@@ -11,12 +11,17 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @version 1.0
  */
 public class Car {
-    public static int CAR_COUNT;
-    private int carId;
+
+    private int id;
+
     private String make;
+
     private String model;
+
     private int year;
+
     private double price;
+
     private String condition;
 
     public Car(String make, String model, int year, double price, String condition) {
@@ -25,7 +30,6 @@ public class Car {
         setYear(year);
         setPrice(price);
         setCondition(condition);
-        this.carId = CAR_COUNT++;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -96,10 +100,18 @@ public class Car {
         this.condition = condition;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
-                "carId=" + carId +
+                "carId=" +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year=" + year +

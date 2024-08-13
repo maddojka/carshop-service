@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="005-insert-order" author="soroko">
+        <insert tableName="tb_orders" schemaName="carshop">
+            <column name="id" valueSequenceNext="orders_sequence"/>
+            <column name="user_id" value="1"/>
+            <column name="car_id" value="1"/>
+            <column name="status" value="CREATED"/>
+            <column name="created_at" value="2024-08-09"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

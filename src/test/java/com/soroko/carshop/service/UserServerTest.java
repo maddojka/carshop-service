@@ -1,11 +1,12 @@
-package service;
+package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.User;
-import com.soroko.carshop.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 /**
  * @author yuriy.soroko
@@ -15,7 +16,7 @@ public class UserServerTest {
     private UserService userService;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         userService = new UserService();
     }
 
@@ -28,7 +29,7 @@ public class UserServerTest {
 
     @Test
     @DisplayName("Check add user method - user is OK")
-    public void addCar_isNotNull() {
+    public void addCar_isNotNull() throws SQLException {
         User user = new User();
         userService.addUser(user);
     }
@@ -49,7 +50,7 @@ public class UserServerTest {
 
     @Test
     @DisplayName("Check get user method - user id is OK")
-    public void getUser_correctId() {
+    public void getUser_correctId() throws SQLException {
         User user = new User();
         userService.getUsers().add(user);
         userService.getUser(0);
@@ -59,23 +60,23 @@ public class UserServerTest {
     @DisplayName("Check edit user method - user id is negative")
     public void editUser_NegativeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                userService.editUser(-1, new User()));
+                userService.editUser(new User()));
     }
 
     @Test
     @DisplayName("Check edit user method - user id is oversized")
     public void editUser_OversizeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                userService.editUser(Integer.MAX_VALUE, new User()));
+                userService.editUser(new User()));
     }
 
     @Test
     @DisplayName("Check edit user method - user id is OK")
-    public void editUser_correctId() {
+    public void editUser_correctId() throws SQLException {
         User user =
                 new User("user01", "123", "user01@gmail.com", User.Role.CLIENT);
         userService.getUsers().add(user);
-        userService.editUser(0, user);
+        userService.editUser(user);
     }
 
     @Test
@@ -94,7 +95,7 @@ public class UserServerTest {
 
     @Test
     @DisplayName("Check remove user method - user id is OK")
-    public void removeUser_correctId() {
+    public void removeUser_correctId() throws SQLException {
         User user =
                 new User("user01", "123", "user01@gmail.com", User.Role.CLIENT);
         userService.getUsers().add(user);

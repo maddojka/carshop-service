@@ -1,8 +1,10 @@
 package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.User;
+import com.soroko.carshop.repository.UserRepository;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
@@ -12,74 +14,80 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @version 1.0
  */
 public class UserService {
-    private final List<User> users = new ArrayList<>();
+    private final UserRepository userRepository = new UserRepository();
+
+    public UserService() throws SQLException, IOException {
+    }
 
     /**
      * Add user to collection
+     *
      * @param user - user to add
      */
-    public void addUser(User user) {
-        if (users.contains(user)) {
-            LOGGER.warning("User already exists");
-            return;
-        }
+    public void addUser(User user) throws SQLException {
         if (user == null) {
             LOGGER.severe("User is null");
             throw new IllegalArgumentException("User is null");
         }
-        this.users.add(user);
+        this.userRepository.insert(user);
         LOGGER.info("User was added");
     }
 
     /**
      * Get user by id
+     *
      * @param id - id of the order to get
      * @return user - requested User
      */
-    public User getUser(int id) {
-        if (id < 0 || id >= this.users.size()) {
+    public User getUser(int id) throws SQLException {
+        if (id < 0) {
             LOGGER.severe("User not found");
             throw new IllegalArgumentException("User not found");
         }
-        return this.users.get(id);
+        return this.userRepository.findById(id);
     }
 
     /**
      * Get all users from collection
+     *
      * @return List of the available cars
      */
-    public List<User> getUsers() {
-        return this.users;
+    public List<User> getUsers() throws SQLException {
+        return userRepository.getAllUsers();
     }
 
     /**
      * Edit user by id
-     * @param id - id of the order to edit
+     *
      * @param user - form of the user to edit
      */
-    public void editUser(int id, User user) {
-        if (user == null || id < 0 || id >= this.users.size()) {
+    public void editUser(User user) throws SQLException {
+        if (user == null) {
             LOGGER.severe("User not found");
             throw new IllegalArgumentException("User not found");
         }
-        this.users.get(id).setUsername(user.getUsername());
-        this.users.get(id).setPassword(user.getPassword());
-        this.users.get(id).setEmail(user.getEmail());
-        this.users.get(id).setNumberOfpurchases(user.getNumberOfpurchases());
-        this.users.get(id).setRole(user.getRole());
+        User userToEdit = userRepository.findById(user.getId());
+        userToEdit.setId(user.getId());
+        userToEdit.setUsername(user.getUsername());
+        userToEdit.setPassword(user.getPassword());
+        userToEdit.setEmail(user.getEmail());
+        userToEdit.setNumberOfpurchases(user.getNumberOfpurchases());
+        userToEdit.setRole(user.getRole());
+        userRepository.update(userToEdit);
         LOGGER.info("User was edited");
     }
 
     /**
      * Remove user by id
+     *
      * @param id - id of the user to remove from the collection
      */
-    public void removeUser(int id) {
-        if (id < 0 || id >= this.users.size()) {
+    public void removeUser(int id) throws SQLException {
+        if (id < 0) {
             LOGGER.severe("Id cannot be negative");
             throw new IllegalArgumentException("Id cannot be negative");
         }
-        this.users.remove(id);
+        userRepository.deleteById(id);
         LOGGER.info("User was removed");
     }
 }

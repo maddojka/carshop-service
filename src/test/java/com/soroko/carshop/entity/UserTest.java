@@ -1,8 +1,5 @@
-package entity;
+package com.soroko.carshop.entity;
 
-import com.soroko.carshop.entity.Car;
-import com.soroko.carshop.entity.Order;
-import com.soroko.carshop.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

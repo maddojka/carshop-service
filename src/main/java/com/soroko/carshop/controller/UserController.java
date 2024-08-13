@@ -3,6 +3,7 @@ package com.soroko.carshop.controller;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.service.UserService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static com.soroko.carshop.entity.User.Role.ADMINISTRATOR;
@@ -33,7 +34,7 @@ public class UserController {
      * This method is an addition layer with scanner functionality
      * receive all available users
      */
-    public void getUsers() {
+    public void getUsers() throws SQLException {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
         } else System.out.println(userService.getUsers());
@@ -44,7 +45,7 @@ public class UserController {
      * This method is an addition layer with scanner functionality
      * register new user in the system
      */
-    public void registerUser() {
+    public void registerUser() throws SQLException {
         System.out.println("Enter username");
         String username = scanner.next();
         System.out.println("Enter password");
@@ -66,7 +67,7 @@ public class UserController {
      * This method is an addition layer with scanner functionality
      * edit existing user
      */
-    public void editUser() {
+    public void editUser() throws SQLException {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
@@ -86,7 +87,8 @@ public class UserController {
         User user = new User(username, password, email, purchases, User.Role.CLIENT);
         if (role.equalsIgnoreCase(ADMINISTRATOR.toString())) user.setRole(ADMINISTRATOR);
         else if (role.equalsIgnoreCase(MANAGER.toString())) user.setRole(MANAGER);
-        userService.editUser(id, user);
+        user.setId(id);
+        userService.editUser(user);
         pauseBeforeExit();
     }
 
@@ -94,7 +96,7 @@ public class UserController {
      * This method is an addition layer with scanner functionality
      * remove existing user from the system
      */
-    public void removeUser() {
+    public void removeUser() throws SQLException {
         if (userService.getUsers().isEmpty()) {
             System.out.println("No users found");
             return;
