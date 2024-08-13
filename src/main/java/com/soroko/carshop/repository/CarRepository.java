@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.soroko.carshop.constants.Constants.*;
+
 /**
  * @author yuriy.soroko
  */
@@ -18,10 +20,8 @@ public class CarRepository extends Repository<Car, Integer> {
     }
 
     public List<Car> getAllCars() throws SQLException {
-        String getAllCarsSql = "SELECT * " +
-                "FROM carshop.tb_cars ";
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(getAllCarsSql);
+        ResultSet resultSet = statement.executeQuery(GET_ALL_CARS_SQL);
         List<Car> cars = new ArrayList<>();
         while (resultSet.next()) {
             Car car = new Car();
@@ -38,9 +38,7 @@ public class CarRepository extends Repository<Car, Integer> {
 
     @Override
     public Integer insert(Car car) throws SQLException {
-        String insertDataSql = "INSERT INTO carshop.tb_cars (id, make, model, year, price, condition)" +
-                " VALUES(nextval('carshop.cars_sequence'),?,?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(insertDataSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CAR_SQL);
         preparedStatement.setString(1, car.getMake());
         preparedStatement.setString(2, car.getModel());
         preparedStatement.setInt(3, car.getYear());
@@ -52,9 +50,7 @@ public class CarRepository extends Repository<Car, Integer> {
 
     @Override
     public void update(Car car) throws SQLException {
-        String updateCarSql =
-                "UPDATE carshop.tb_cars SET make = ?, model = ?, year = ?, price = ?, condition = ? WHERE id = ? ";
-        PreparedStatement preparedStatement = connection.prepareStatement(updateCarSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CAR_SQL);
         preparedStatement.setString(1, car.getMake());
         preparedStatement.setString(2, car.getModel());
         preparedStatement.setInt(3, car.getYear());
@@ -67,16 +63,14 @@ public class CarRepository extends Repository<Car, Integer> {
 
     @Override
     public void deleteById(Integer integer) throws SQLException {
-        String deleteCarSql = "DELETE FROM carshop.tb_cars WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteCarSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CAR_SQL);
         preparedStatement.setInt(1, integer);
         preparedStatement.executeUpdate();
     }
 
     @Override
     public Car findById(Integer integer) throws SQLException {
-        String findCarByIdSql = "SELECT * FROM carshop.tb_cars WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(findCarByIdSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_CAR_BY_ID_SQL);
         preparedStatement.setInt(1, integer);
         ResultSet resultSet = preparedStatement.executeQuery();
         Car car = new Car();
@@ -92,8 +86,7 @@ public class CarRepository extends Repository<Car, Integer> {
     }
 
     public void deleteAll() throws SQLException {
-        String deleteAllCarsSql = "DELETE FROM carshop.tb_cars";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteAllCarsSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_CARS_SQL);
         preparedStatement.executeUpdate();
     }
 }

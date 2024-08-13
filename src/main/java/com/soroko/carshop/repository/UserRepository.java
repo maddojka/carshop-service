@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.soroko.carshop.constants.Constants.*;
+
 /**
  * @author yuriy.soroko
  */
@@ -18,10 +20,8 @@ public class UserRepository extends Repository<User, Integer> {
     }
 
     public List<User> getAllUsers() throws SQLException {
-        String getAllUsersSql = "SELECT * " +
-                "FROM carshop.tb_users ";
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(getAllUsersSql);
+        ResultSet resultSet = statement.executeQuery(GET_ALL_USERS_SQL);
         List<User> users = new ArrayList<>();
         while (resultSet.next()) {
             User user = new User();
@@ -37,11 +37,8 @@ public class UserRepository extends Repository<User, Integer> {
 
     @Override
     public Integer insert(User user) throws SQLException {
-        String insertDataSql =
-                "INSERT INTO carshop.tb_users (id, username, password, email, number_of_purchases, role) " +
-                        "VALUES(nextval('carshop.users_sequence'),?,?,?,?,?)";
         PreparedStatement preparedStatement =
-                connection.prepareStatement(insertDataSql);
+                connection.prepareStatement(INSERT_USER_SQL);
         preparedStatement.setString(1, user.getUsername());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getEmail());
@@ -53,9 +50,7 @@ public class UserRepository extends Repository<User, Integer> {
 
     @Override
     public void update(User user) throws SQLException {
-        String updateUserSql =
-                "UPDATE carshop.tb_users SET username = ?, password = ?, email = ?, role = ? WHERE id = ? ";
-        PreparedStatement preparedStatement = connection.prepareStatement(updateUserSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL);
         preparedStatement.setString(1, user.getUsername());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getEmail());
@@ -66,16 +61,14 @@ public class UserRepository extends Repository<User, Integer> {
 
     @Override
     public void deleteById(Integer integer) throws SQLException {
-        String deleteUserSql = "DELETE FROM carshop.tb_users WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteUserSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL);
         preparedStatement.setInt(1, integer);
         preparedStatement.executeUpdate();
     }
 
     @Override
     public User findById(Integer integer) throws SQLException {
-        String findUserByIdSql = "SELECT * FROM carshop.tb_users WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(findUserByIdSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID_SQL);
         preparedStatement.setInt(1, integer);
         ResultSet resultSet = preparedStatement.executeQuery();
         User user = new User();
@@ -90,8 +83,7 @@ public class UserRepository extends Repository<User, Integer> {
     }
 
     public void deleteAll() throws SQLException {
-        String deleteAllUsersSql = "DELETE FROM carshop.tb_users";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteAllUsersSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_USERS_SQL);
         preparedStatement.executeUpdate();
     }
 }

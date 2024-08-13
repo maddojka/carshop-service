@@ -13,24 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @Testcontainers
 class UserRepositoryTest {
 
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:14-alpine");
-
+    private PostgresTest postgresTest;
     private CarRepository carRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
+    private User user;
 
-    @BeforeAll
-    static void beforeAll() {
-        postgres.start();
-    }
-
-    @AfterAll
-    static void afterAll() {
-        postgres.stop();
-    }
 
     @BeforeEach
     void setUp() throws SQLException {
+        postgresTest = new PostgresTest();
         carRepository = new CarRepository();
         orderRepository = new OrderRepository();
         userRepository = new UserRepository();
@@ -46,17 +38,12 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Checking get all users method - shouldn't be empty")
     void test_shouldGetAllUsers() throws SQLException {
-        userRepository.insert(new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT));
         assertFalse(userRepository.getAllUsers().isEmpty());
     }
 
     @Test
     @DisplayName("Checking user insertion method - should insert user")
     void test_shouldInsertUser() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        userRepository.insert(user);
         User retreivedUser = userRepository.findById(user.getId());
         Assertions.assertEquals(user, retreivedUser);
     }
@@ -64,8 +51,6 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Checking user updating - should update user")
     void test_shouldUpdateUser() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
         User updatedUser = new User("user999", "123", "user999@mail.com",
                 User.Role.MANAGER);
         userRepository.insert(user);
@@ -77,9 +62,6 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Checking user deleting - should delete user")
     void test_shouldDeleteUserById() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        userRepository.insert(user);
         User retrievedUser = userRepository.getAllUsers().get(0);
         userRepository.deleteById(retrievedUser.getId());
         assertTrue(userRepository.getAllUsers().isEmpty());
@@ -88,9 +70,6 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Checking user finding - should find user by car id")
     void test_shouldFindOrderById() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        userRepository.insert(user);
         User retrievedUser = userRepository.findById(1);
         Assertions.assertTrue(retrievedUser != null);
     }

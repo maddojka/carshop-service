@@ -14,10 +14,10 @@ import static com.soroko.carshop.constants.Constants.*;
  * @version 1.0
  */
 public class CarShopManager {
-    private Menu menu;
-    private CarService carService;
-    private OrderService orderService;
-    private UserService userService;
+    private final Menu menu;
+    private final CarService carService;
+    private final OrderService orderService;
+    private final UserService userService;
     private final Scanner scanner;
     private boolean isLoggedIn = false;
 

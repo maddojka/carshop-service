@@ -1,5 +1,6 @@
 package com.soroko.carshop.repository;
 
+import com.soroko.carshop.constants.Constants;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
@@ -8,6 +9,8 @@ import com.soroko.carshop.jdbc.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.soroko.carshop.constants.Constants.*;
 
 /**
  * @author yuriy.soroko
@@ -21,10 +24,8 @@ public class OrderRepository extends Repository<Order, Integer> {
     }
 
     public List<Order> getAllOrders() throws SQLException {
-        String getAllOrdersSql = "SELECT * " +
-                "FROM carshop.tb_orders ";
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(getAllOrdersSql);
+        ResultSet resultSet = statement.executeQuery(GET_ALL_ORDERS_SQL);
         List<Order> orders = new ArrayList<>();
         while (resultSet.next()) {
             Order order = new Order();
@@ -42,9 +43,7 @@ public class OrderRepository extends Repository<Order, Integer> {
 
     @Override
     public Integer insert(Order order) throws SQLException {
-        String insertDataSql = "INSERT INTO carshop.tb_orders (id, user_id, car_id, status, created_at) " +
-                "VALUES(nextval('carshop.orders_sequence'),?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(insertDataSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(Constants.INSERT_ORDER_SQL);
         preparedStatement.setInt(1, order.getUser().getId());
         preparedStatement.setInt(2, order.getCar().getId());
         preparedStatement.setString(3, order.getStatus().toString());
@@ -55,9 +54,7 @@ public class OrderRepository extends Repository<Order, Integer> {
 
     @Override
     public void update(Order order) throws SQLException {
-        String updateOrderSql =
-                "UPDATE carshop.tb_orders SET user_id = ?, car_id = ?, status = ?, created_at = ?  WHERE id = ? ";
-        PreparedStatement preparedStatement = connection.prepareStatement(updateOrderSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_SQL);
         preparedStatement.setInt(1, order.getUser().getId());
         preparedStatement.setInt(2, order.getCar().getId());
         preparedStatement.setString(3, order.getStatus().toString());
@@ -68,18 +65,16 @@ public class OrderRepository extends Repository<Order, Integer> {
 
     @Override
     public void deleteById(Integer integer) throws SQLException {
-        String deleteOrderSql = "DELETE FROM carshop.tb_orders WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteOrderSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER_SQL);
         preparedStatement.setInt(1, integer);
         preparedStatement.executeUpdate();
     }
 
     @Override
     public Order findById(Integer integer) throws SQLException {
-        String findOrderByIdSql = "SELECT * FROM carshop.tb_orders WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(findOrderByIdSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_ORDER_BY_ID_SQL);
         preparedStatement.setInt(1, integer);
-        ResultSet resultSet = preparedStatement.executeQuery(findOrderByIdSql);
+        ResultSet resultSet = preparedStatement.executeQuery(FIND_ORDER_BY_ID_SQL);
         Order order = new Order();
         order.setId(resultSet.getInt("id"));
         order.setCar((Car) resultSet.getObject("car_id"));
@@ -90,8 +85,7 @@ public class OrderRepository extends Repository<Order, Integer> {
     }
 
     public void deleteAll() throws SQLException {
-        String deleteAllOrdersSql = "DELETE FROM carshop.tb_orders";
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteAllOrdersSql);
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_ORDERS_SQL);
         preparedStatement.executeUpdate();
     }
 }

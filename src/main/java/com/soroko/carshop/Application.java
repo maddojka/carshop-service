@@ -17,7 +17,5 @@ public class Application {
         } catch (LiquibaseException | SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
-
-
     }
 }

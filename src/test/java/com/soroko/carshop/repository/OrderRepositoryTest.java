@@ -14,58 +14,43 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Testcontainers
 class OrderRepositoryTest {
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:14-alpine");
 
+    private PostgresTest postgresTest;
     private CarRepository carRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
+    private User user;
+    private Car car;
+    private Order order;
 
-    @BeforeAll
-    static void beforeAll() {
-        postgres.start();
-    }
-
-    @AfterAll
-    static void afterAll() {
-        postgres.stop();
-    }
 
     @BeforeEach
     void setUp() throws SQLException {
+        postgresTest = new PostgresTest();
         carRepository = new CarRepository();
         orderRepository = new OrderRepository();
         userRepository = new UserRepository();
         orderRepository.deleteAll();
         carRepository.deleteAll();
         userRepository.deleteAll();
+        user = new User("user999", "123", "user999@mail.com", User.Role.CLIENT);
+        car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
+        user.setId(1);
+        car.setId(1);
+        order =  new Order(user, car, Order.Status.CREATED);
+        orderRepository.insert(order);
     }
 
 
     @Test
     @DisplayName("Checking get all orders method - shouldn't be empty")
     void test_shouldGetAllOrders() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        user.setId(1);
-        Car car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
-        car.setId(1);
-        orderRepository.insert(
-                new Order(user, car,
-                        com.soroko.carshop.entity.Order.Status.CREATED));
         assertFalse(orderRepository.getAllOrders().isEmpty());
     }
 
     @Test
     @DisplayName("Checking order insertion method - should insert order")
     void test_shouldInsertOrder() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        user.setId(1);
-        Car car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
-        car.setId(1);
-        Order order = new Order(user, car,
-                com.soroko.carshop.entity.Order.Status.CREATED);
-        orderRepository.insert(order);
         Order retrievedOrder = orderRepository.findById(order.getId());
         Assertions.assertEquals(order, retrievedOrder);
     }
@@ -73,16 +58,8 @@ class OrderRepositoryTest {
     @Test
     @DisplayName("Checking order updating - should update order")
     void test_shouldUpdateOrder() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        user.setId(1);
-        Car car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
-        car.setId(1);
-        Order order = new Order(user, car,
-                Order.Status.CREATED);
         Order updatedOrder = new Order(user, car,
                 Order.Status.IN_PROGRESS);
-        orderRepository.insert(order);
         orderRepository.update(updatedOrder);
         Order retrievedOrder = orderRepository.getAllOrders().get(0);
         Assertions.assertEquals(updatedOrder, retrievedOrder);
@@ -91,14 +68,6 @@ class OrderRepositoryTest {
     @Test
     @DisplayName("Checking order deleting - should delete order")
     void test_shouldDeleteOrderById() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        user.setId(1);
-        Car car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
-        car.setId(1);
-        Order order = new Order(user, car,
-                Order.Status.CREATED);
-        orderRepository.insert(order);
         Order retrievedOrder = orderRepository.getAllOrders().get(0);
         orderRepository.deleteById(retrievedOrder.getId());
         assertTrue(orderRepository.getAllOrders().isEmpty());
@@ -107,14 +76,6 @@ class OrderRepositoryTest {
     @Test
     @DisplayName("Checking order finding - should find order by car id")
     void test_shouldFindOrderById() throws SQLException {
-        User user = new User("user999", "123", "user999@mail.com",
-                User.Role.CLIENT);
-        user.setId(1);
-        Car car = new Car("Volksvagen", "Polo", 2020, 2_000_000.0, "used");
-        car.setId(1);
-        Order order = new Order(user, car,
-                Order.Status.CREATED);
-        orderRepository.insert(order);
         Order retrievedOrder = orderRepository.findById(1);
         Assertions.assertTrue(retrievedOrder != null);
     }
