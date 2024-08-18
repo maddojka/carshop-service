@@ -1,5 +1,6 @@
 package com.soroko.carshop.service;
 
+import com.soroko.carshop.annotations.Loggable;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.OrderRepository;
@@ -18,6 +19,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Loggable
 public class OrderService {
     private final OrderRepository orderRepository = new OrderRepository();
 

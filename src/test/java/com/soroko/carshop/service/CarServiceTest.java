@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -17,7 +18,7 @@ public class CarServiceTest {
     private CarService carService;
 
     @BeforeEach
-    public void setUp() throws SQLException {
+    public void setUp() throws SQLException, IOException {
         carService = new CarService();
     }
 

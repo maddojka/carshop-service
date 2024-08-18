@@ -14,7 +14,6 @@ public class Application {
             LiquibaseConnection liquibaseConnection = new LiquibaseConnection();
             liquibaseConnection.liquibaseConnection();
             CarShopManager carShopManager = new CarShopManager();
-            carShopManager.startCarShopLoop();
         } catch (LiquibaseException | SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         } catch (IOException e) {
