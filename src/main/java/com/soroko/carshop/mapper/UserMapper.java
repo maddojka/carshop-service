@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 @Mapper
 public interface UserMapper {

@@ -6,6 +6,7 @@ import com.soroko.carshop.entity.User;
 import com.soroko.carshop.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,7 @@ class OrderServletTest extends Mockito {
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         servlet = new OrderServlet();
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -44,6 +46,7 @@ class OrderServletTest extends Mockito {
         servlet.getOrders(request, response);
         verify(request).setAttribute("orders", orders);
         verify(request, times(1));
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -53,6 +56,7 @@ class OrderServletTest extends Mockito {
         when(request.getParameter("status")).thenReturn("CREATED");
         servlet.addOrder(request, response);
         verify(request, times(1)).getParameter("status");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -63,6 +67,7 @@ class OrderServletTest extends Mockito {
         when(request.getParameter("status")).thenReturn("CREATED");
         servlet.editOrder(request, response);
         verify(request, times(1)).getParameter("status");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -72,6 +77,7 @@ class OrderServletTest extends Mockito {
         when(request.getParameter("id")).thenReturn("1");
         servlet.deleteOrder(request, response);
         verify(request, times(1)).getParameter("id");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -84,6 +90,7 @@ class OrderServletTest extends Mockito {
         servlet.getOrderById(request, response);
         verify(request).setAttribute("order", order);
         verify(request, times(1));
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -94,6 +101,7 @@ class OrderServletTest extends Mockito {
         when(request.getParameter("status")).thenReturn("COMPLETED");
         servlet.completeOrder(request, response);
         verify(request, times(1)).getParameter("id");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -109,6 +117,7 @@ class OrderServletTest extends Mockito {
         servlet.getOrderByDate(request, response);
         verify(request).setAttribute("orders", orders);
         verify(request, times(1)).getParameter("date");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -124,5 +133,6 @@ class OrderServletTest extends Mockito {
         servlet.getOrderByStatus(request, response);
         verify(request).setAttribute("orders", orders);
         verify(request, times(1)).getParameter("status");
+        Assertions.assertEquals(200, response.getStatus());
     }
 }

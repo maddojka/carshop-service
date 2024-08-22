@@ -4,6 +4,7 @@ import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.service.CarService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,7 @@ class CarServletTest extends Mockito {
         servlet.getCars(request, response);
         verify(request).setAttribute("cars", cars);
         verify(request, times(1));
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -53,6 +55,7 @@ class CarServletTest extends Mockito {
         when(request.getParameter("condition")).thenReturn("new");
         servlet.addCar(request, response);
         verify(request, times(1)).getParameter("make");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -67,6 +70,7 @@ class CarServletTest extends Mockito {
         when(request.getParameter("condition")).thenReturn("new");
         servlet.editCar(request, response);
         verify(request, times(1)).getParameter("make");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -76,6 +80,7 @@ class CarServletTest extends Mockito {
         when(request.getParameter("id")).thenReturn("1");
         servlet.deleteCar(request, response);
         verify(request, times(1)).getParameter("id");
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -88,6 +93,7 @@ class CarServletTest extends Mockito {
         servlet.getCarById(request, response);
         verify(request).setAttribute("car", car);
         verify(request, times(1));
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -103,6 +109,7 @@ class CarServletTest extends Mockito {
         when(carService.findByConditionAndPrice("new", 3_000_000.0)).thenReturn(cars);
         servlet.getCarByConditionAndPrice(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -117,6 +124,7 @@ class CarServletTest extends Mockito {
         when(carService.findByCondition("new")).thenReturn(cars);
         servlet.getCarByCondition(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -131,6 +139,7 @@ class CarServletTest extends Mockito {
         when(carService.findAndSortBy("Lada")).thenReturn(cars);
         servlet.getCarByMake(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -145,6 +154,7 @@ class CarServletTest extends Mockito {
         when(carService.findByModel("X5")).thenReturn(cars);
         servlet.getCarByModel(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -159,6 +169,7 @@ class CarServletTest extends Mockito {
         when(carService.findAndSortBy(2024)).thenReturn(cars);
         servlet.getCarByPrice(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -173,5 +184,6 @@ class CarServletTest extends Mockito {
         when(carService.findAndSortBy(5_000_000.0)).thenReturn(cars);
         servlet.getCarByYear(request, response);
         verify(request).setAttribute("cars", cars);
+        Assertions.assertEquals(200, response.getStatus());
     }
 }

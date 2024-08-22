@@ -13,6 +13,8 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Getter
+@Setter
 public class Order {
 
     private int id;
@@ -45,47 +47,6 @@ public class Order {
     }
 
     public Order() {
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override

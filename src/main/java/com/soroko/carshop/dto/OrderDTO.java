@@ -6,6 +6,7 @@ import com.soroko.carshop.entity.User;
 
 /**
  * @author yuriy.soroko
+ * @version 1.0
  */
 public record OrderDTO(
         User user,
