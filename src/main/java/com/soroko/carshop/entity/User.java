@@ -115,6 +115,8 @@ public class User {
         return Objects.hash(getUsername(), getPassword());
     }
 
+
+
     public enum Role {
         ADMINISTRATOR, MANAGER, CLIENT;
     }

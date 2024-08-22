@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertTrue;
@@ -25,7 +26,7 @@ class OrderRepositoryTest {
 
 
     @BeforeEach
-    void setUp() throws SQLException {
+    void setUp() throws SQLException, IOException {
         postgresTest = new PostgresTest();
         carRepository = new CarRepository();
         orderRepository = new OrderRepository();

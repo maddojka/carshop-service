@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * @author yuriy.soroko
+ * @version 1.0
+ */
 public class PropertiesLoader {
 
     public static Properties loadProperties() throws IOException {

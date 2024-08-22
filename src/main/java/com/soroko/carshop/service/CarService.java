@@ -1,5 +1,6 @@
 package com.soroko.carshop.service;
 
+import com.soroko.carshop.annotations.Loggable;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.repository.CarRepository;
 
@@ -16,6 +17,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Loggable
 public class CarService {
 
     private final CarRepository carRepository = new CarRepository();

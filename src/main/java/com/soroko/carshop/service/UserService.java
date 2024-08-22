@@ -1,5 +1,6 @@
 package com.soroko.carshop.service;
 
+import com.soroko.carshop.annotations.Loggable;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.UserRepository;
 
@@ -13,6 +14,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Loggable
 public class UserService {
     private final UserRepository userRepository = new UserRepository();
 

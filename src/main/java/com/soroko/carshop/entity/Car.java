@@ -1,5 +1,8 @@
 package com.soroko.carshop.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Calendar;
 import java.util.logging.Level;
 
@@ -10,6 +13,8 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Getter
+@Setter
 public class Car {
 
     private int id;
@@ -40,20 +45,12 @@ public class Car {
     public Car() {
     }
 
-    public String getMake() {
-        return make;
-    }
-
     public void setMake(String make) {
         if ("".equals(make) || make == null) {
             LOGGER.log(Level.SEVERE, "Make cannot be empty");
             throw new IllegalArgumentException("Make cannot be empty");
         }
         this.make = make;
-    }
-
-    public String getModel() {
-        return model;
     }
 
     public void setModel(String model) {
@@ -64,20 +61,12 @@ public class Car {
         this.model = model;
     }
 
-    public int getYear() {
-        return year;
-    }
-
     public void setYear(int year) {
         if (year < 2000 || year > Calendar.getInstance().get(Calendar.YEAR)) {
             LOGGER.log(Level.SEVERE, "Year out of range");
             throw new IllegalArgumentException("Year out of range");
         }
         this.year = year;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public void setPrice(double price) {
@@ -88,24 +77,12 @@ public class Car {
         this.price = price;
     }
 
-    public String getCondition() {
-        return condition;
-    }
-
     public void setCondition(String condition) {
         if ("".equals(condition) || condition == null) {
             LOGGER.log(Level.SEVERE, "Condition cannot be empty");
             throw new IllegalArgumentException("Condition cannot be empty");
         }
         this.condition = condition;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
