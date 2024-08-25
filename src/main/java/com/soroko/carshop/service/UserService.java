@@ -3,8 +3,11 @@ package com.soroko.carshop.service;
 import com.soroko.carshop.annotations.Loggable;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,10 +18,14 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @version 1.0
  */
 @Loggable
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserService {
-    private final UserRepository userRepository = new UserRepository();
+    final UserRepository userRepository;
 
-    public UserService() throws SQLException, IOException {
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -73,7 +80,7 @@ public class UserService {
         userToEdit.setUsername(user.getUsername());
         userToEdit.setPassword(user.getPassword());
         userToEdit.setEmail(user.getEmail());
-        userToEdit.setNumberOfpurchases(user.getNumberOfpurchases());
+        userToEdit.setNumberOfPurchases(user.getNumberOfPurchases());
         userToEdit.setRole(user.getRole());
         userRepository.update(userToEdit);
         LOGGER.info("User was edited");

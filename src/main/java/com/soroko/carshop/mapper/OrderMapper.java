@@ -11,11 +11,13 @@ import java.util.List;
  * @author yuriy.soroko
  * @version 1.0
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface OrderMapper {
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class); //add instance to call mapper
 
     OrderDTO toOrderDTO(Order order);
+
+    Order toOrder(OrderDTO orderDTO);
 
     List<OrderDTO> toOrderDTOList(List<Order> orders);
 }

@@ -2,6 +2,7 @@ package com.soroko.carshop.jdbc;
 
 
 import com.soroko.carshop.configuration.PropertiesLoader;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,21 +11,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import static com.soroko.carshop.constants.Constants.*;
-
 /**
- *
  * @author Yuriy Soroko
  */
 public class DatabaseConnection {
 
     private static DatabaseConnection instance;
+    @Getter
     private Connection connection;
-    Properties conf = PropertiesLoader.loadProperties();
-    String url = conf.getProperty("url");
-    String user = conf.getProperty("db_username");
-    String password = conf.getProperty("db_password");
-
+    private Properties conf = PropertiesLoader.loadProperties();
+    private String url = conf.getProperty("url");
+    private String user = conf.getProperty("db_username");
+    private String password = conf.getProperty("db_password");
 
 
     private DatabaseConnection() throws SQLException, IOException {
@@ -36,10 +34,6 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     public static DatabaseConnection getInstance() throws SQLException, IOException {

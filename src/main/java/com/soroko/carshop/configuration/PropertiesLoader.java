@@ -13,8 +13,8 @@ public class PropertiesLoader {
     public static Properties loadProperties() throws IOException {
         Properties configuration = new Properties();
         InputStream inputStream = PropertiesLoader.class
-          .getClassLoader()
-          .getResourceAsStream("application.properties");
+                .getClassLoader()
+                .getResourceAsStream("application.yml");
         configuration.load(inputStream);
         inputStream.close();
         return configuration;

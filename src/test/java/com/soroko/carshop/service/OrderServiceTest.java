@@ -3,6 +3,7 @@ package com.soroko.carshop.service;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
+import com.soroko.carshop.repository.OrderRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,10 +20,11 @@ import java.time.LocalDate;
 public class OrderServiceTest {
 
     private OrderService orderService;
+    private OrderRepository orderRepository;
 
     @BeforeEach
     void setUp() throws SQLException, IOException {
-        orderService = new OrderService();
+        orderService = new OrderService(orderRepository);
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.soroko.carshop.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  */
 @Getter
 @Setter
+@Component
 public class User {
 
     private int id;
@@ -25,11 +27,11 @@ public class User {
 
     private String email;
 
-    private int numberOfpurchases;
+    private int numberOfPurchases;
 
     private Role role;
 
-    public User(String username, String password, String email, int numberOfpurchases, Role role) {
+    public User(String username, String password, String email, int numberOfPurchases, Role role) {
         if ("".equals(username) || username == null) {
             LOGGER.log(Level.SEVERE, "Username is empty");
             throw new IllegalArgumentException("Username is empty");
@@ -42,8 +44,8 @@ public class User {
         this.password = password;
         setEmail(email);
         this.email = email;
-        setNumberOfpurchases(numberOfpurchases);
-        this.numberOfpurchases = numberOfpurchases;
+        setNumberOfPurchases(numberOfPurchases);
+        this.numberOfPurchases = numberOfPurchases;
         setRole(role);
         this.role = role;
     }
@@ -76,12 +78,12 @@ public class User {
         this.email = email;
     }
 
-    public void setNumberOfpurchases(int numberOfpurchases) {
-        if (numberOfpurchases < 0) {
+    public void setNumberOfPurchases(int numberOfPurchases) {
+        if (numberOfPurchases < 0) {
             LOGGER.log(Level.SEVERE, "Number of purchases cannot be negative");
             throw new IllegalArgumentException("Number of purchases cannot be negative");
         }
-        this.numberOfpurchases = numberOfpurchases;
+        this.numberOfPurchases = numberOfPurchases;
     }
 
     public void setRole(Role role) {
@@ -98,7 +100,7 @@ public class User {
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", numberOfpurchases=" + numberOfpurchases +
+                ", numberOfpurchases=" + numberOfPurchases +
                 ", role=" + role +
                 '}';
     }
@@ -114,7 +116,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(getUsername(), getPassword());
     }
-
 
 
     public enum Role {

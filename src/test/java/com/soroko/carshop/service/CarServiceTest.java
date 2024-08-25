@@ -1,6 +1,7 @@
 package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.Car;
+import com.soroko.carshop.repository.CarRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,10 +17,11 @@ import java.sql.SQLException;
 public class CarServiceTest {
 
     private CarService carService;
+    private CarRepository carRepository;
 
     @BeforeEach
     public void setUp() throws SQLException, IOException {
-        carService = new CarService();
+        carService = new CarService(carRepository);
     }
 
     @Test

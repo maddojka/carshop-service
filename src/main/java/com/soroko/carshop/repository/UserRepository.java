@@ -13,6 +13,7 @@ import static com.soroko.carshop.constants.Constants.*;
 /**
  * @author yuriy.soroko
  */
+@org.springframework.stereotype.Repository
 public class UserRepository extends Repository<User, Integer> {
 
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
@@ -43,7 +44,7 @@ public class UserRepository extends Repository<User, Integer> {
         preparedStatement.setString(1, user.getUsername());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getEmail());
-        preparedStatement.setInt(4, user.getNumberOfpurchases());
+        preparedStatement.setInt(4, user.getNumberOfPurchases());
         preparedStatement.setString(5, user.getRole().toString());
         preparedStatement.executeUpdate();
         return user.getId();

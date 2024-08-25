@@ -3,8 +3,11 @@ package com.soroko.carshop.service;
 import com.soroko.carshop.annotations.Loggable;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.repository.CarRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -18,11 +21,14 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @version 1.0
  */
 @Loggable
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CarService {
+    final CarRepository carRepository;
 
-    private final CarRepository carRepository = new CarRepository();
-
-    public CarService() throws SQLException, IOException {
+    @Autowired
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
     /**

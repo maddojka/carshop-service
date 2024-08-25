@@ -13,6 +13,7 @@ import static com.soroko.carshop.constants.Constants.*;
 /**
  * @author yuriy.soroko
  */
+@org.springframework.stereotype.Repository
 public class CarRepository extends Repository<Car, Integer> {
 
     private final Connection connection = DatabaseConnection.getInstance().getConnection();

@@ -73,7 +73,7 @@ public class UserTest {
     public void Order_numberOfPurchases_isNegative() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             User user = new User(null, "123", "user02@gmail.com", MANAGER);
-            user.setNumberOfpurchases(-1);
+            user.setNumberOfPurchases(-1);
         });
     }
 

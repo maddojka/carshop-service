@@ -7,9 +7,10 @@ import com.soroko.carshop.entity.User;
  * @version 1.0
  */
 public record UserDTO(
+        int id,
         String username,
         String email,
         User.Role role,
-        int numberOfpurchases) {
+        int numberOfPurchases) {
 
 }

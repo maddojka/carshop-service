@@ -16,6 +16,7 @@ import static com.soroko.carshop.constants.Constants.*;
 /**
  * @author yuriy.soroko
  */
+@org.springframework.stereotype.Repository
 public class OrderRepository extends Repository<Order, Integer> {
     private final CarRepository carRepository = new CarRepository();
     private final UserRepository userRepository = new UserRepository();

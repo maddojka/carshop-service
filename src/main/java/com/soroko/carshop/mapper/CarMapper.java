@@ -11,11 +11,13 @@ import java.util.List;
  * @author yuriy.soroko
  * @version 1.0
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CarMapper {
     CarMapper INSTANCE = Mappers.getMapper(CarMapper.class); //add instance to call mapper
 
     CarDTO toCarDTO(Car car);
+
+    Car toCar(CarDTO carDTO);
 
     List<CarDTO> toCarDTOList(List<Car> cars);
 }
