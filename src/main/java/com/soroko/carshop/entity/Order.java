@@ -2,6 +2,7 @@ package com.soroko.carshop.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -10,11 +11,13 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
+ * This class consists fields to store order data to database
  * @author yuriy.soroko
  * @version 1.0
  */
 @Getter
 @Setter
+@Component
 public class Order {
 
     private int id;

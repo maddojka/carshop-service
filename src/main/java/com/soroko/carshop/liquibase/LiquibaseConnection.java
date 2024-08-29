@@ -12,20 +12,22 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
-import static com.soroko.carshop.constants.Constants.*;
-
 /**
+ * This class consists liquibase connection
  * @author yuriy.soroko
  */
-
-
 public class LiquibaseConnection {
 
-    Properties conf = PropertiesLoader.loadProperties();
-    String schema = conf.getProperty("liquibaseSchemaName");
+    /**
+     * Liquibase properties
+     */
+    private Properties conf = PropertiesLoader.loadProperties();
+    private String schema = conf.getProperty("liquibaseSchemaName");
+    private String url = conf.getProperty("url");
+    private String user = conf.getProperty("db_username");
+    private String password = conf.getProperty("db_password");
 
     public LiquibaseConnection() throws IOException {
     }
@@ -33,7 +35,7 @@ public class LiquibaseConnection {
 
     public void liquibaseConnection() throws LiquibaseException {
         try {
-            Connection connection = DriverManager.getConnection(URL, DB_USERNAME, DB_PASSWORD);
+            Connection connection = DriverManager.getConnection(url, user, password);
             Database database =
                     DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
             database.setDefaultSchemaName(schema);

@@ -9,8 +9,5 @@
         <sql dbms="postgresql" endDelimiter=";">
             CREATE SCHEMA IF NOT EXISTS carshop
         </sql>
-      <!--  <sql dbms="postgresql" endDelimiter=";">
-            CREATE SCHEMA IF NOT EXISTS service
-        </sql>-->
     </changeSet>
 </databaseChangeLog>

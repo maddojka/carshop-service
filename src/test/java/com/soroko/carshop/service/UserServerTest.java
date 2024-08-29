@@ -1,6 +1,7 @@
 package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.User;
+import com.soroko.carshop.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +16,11 @@ import java.sql.SQLException;
  */
 public class UserServerTest {
     private UserService userService;
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() throws SQLException, IOException {
-        userService = new UserService();
+        userService = new UserService(userRepository);
     }
 
     @Test

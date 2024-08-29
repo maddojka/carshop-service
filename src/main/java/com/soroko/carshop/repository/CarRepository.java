@@ -11,8 +11,11 @@ import java.util.List;
 import static com.soroko.carshop.constants.Constants.*;
 
 /**
+ *  This class consists SQL queries to get, receive, add or remove car
+ *  from database
  * @author yuriy.soroko
  */
+@org.springframework.stereotype.Repository
 public class CarRepository extends Repository<Car, Integer> {
 
     private final Connection connection = DatabaseConnection.getInstance().getConnection();

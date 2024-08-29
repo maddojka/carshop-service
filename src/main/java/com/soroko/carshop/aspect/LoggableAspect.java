@@ -1,17 +1,21 @@
 package com.soroko.carshop.aspect;
 
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
+ * This class consist aspect which evaluate time of execution of methods
  * @author yuriy.soroko
  * @version 1.0
  */
 @Aspect
+@Component
 public class LoggableAspect {
     @Pointcut("within(@com.soroko.carshop.annotations.Loggable *) && execution( * * (..))")
     public void annotatedByLoggable() {

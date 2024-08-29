@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Loggable interface in order to mark classes to log
  * @author yuriy.soroko
  * @version 1.0
  */
