@@ -11,6 +11,7 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
+ * This class consists fields to store order data to database
  * @author yuriy.soroko
  * @version 1.0
  */

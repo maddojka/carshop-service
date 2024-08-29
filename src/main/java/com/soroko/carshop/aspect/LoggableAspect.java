@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
+ * This class consist aspect which evaluate time of execution of methods
  * @author yuriy.soroko
  * @version 1.0
  */

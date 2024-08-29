@@ -27,7 +27,7 @@
         <commons-configuration.version>1.6</commons-configuration.version>
         <jakarta.version>6.0.0</jakarta.version>
         <jackson.version>2.15.3</jackson.version>
-        <aspectj.version>1.5.3</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <org.codehaus.mojo.version>1.14.0</org.codehaus.mojo.version>
         <mapstructs.version>1.5.5.Final</mapstructs.version>
         <mockito.version>5.12.0</mockito.version>
@@ -45,6 +45,7 @@
         <hibernate-entitymanager.version>5.6.15.Final</hibernate-entitymanager.version>
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
         <springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
+        <spring-security-config.version>6.3.1</spring-security-config.version>
     </properties>
     <dependencies>
         <dependency>
@@ -193,6 +194,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox-swagger-ui.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security-config.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

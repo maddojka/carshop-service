@@ -1,6 +1,7 @@
 package com.soroko.carshop.repository;
 
 /**
+ * abstract class of repository layer
  * @author yuriy.soroko
  */
 abstract public class Repository<T, ID> {

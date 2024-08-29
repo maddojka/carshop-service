@@ -14,6 +14,8 @@ import java.util.List;
 import static com.soroko.carshop.constants.Constants.*;
 
 /**
+ *  This class consists SQL queries to get, receive, add or remove order
+ *  from database
  * @author yuriy.soroko
  */
 @org.springframework.stereotype.Repository

@@ -7,6 +7,8 @@ import com.soroko.carshop.entity.User;
 import java.time.LocalDate;
 
 /**
+ * This class consists order data transfer object fields
+ * it needs to transform input data to entity
  * @author yuriy.soroko
  * @version 1.0
  */

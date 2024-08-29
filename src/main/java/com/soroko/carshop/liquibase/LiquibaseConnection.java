@@ -15,12 +15,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
+ * This class consists liquibase connection
  * @author yuriy.soroko
  */
-
-
 public class LiquibaseConnection {
 
+    /**
+     * Liquibase properties
+     */
     private Properties conf = PropertiesLoader.loadProperties();
     private String schema = conf.getProperty("liquibaseSchemaName");
     private String url = conf.getProperty("url");

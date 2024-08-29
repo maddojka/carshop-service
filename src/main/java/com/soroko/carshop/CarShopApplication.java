@@ -7,9 +7,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.io.IOException;
 
+/**
+ * This class launch the application and create the spring context
+ * Also this class calls database and liquibase configuration
+ * @author yuriy.soroko
+ */
 public class CarShopApplication {
 
     public static void main(String[] args) throws Exception {
+        // Spring context
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         try {
             LiquibaseConnection liquibaseConnection = new LiquibaseConnection();

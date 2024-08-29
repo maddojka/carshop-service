@@ -14,14 +14,17 @@ import java.util.List;
 import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
+ * This class consists logic of users data
  * @author yuriy.soroko
  * @version 1.0
  */
 @Loggable
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserService {
-    final UserRepository userRepository;
+    /**
+     * inject user repository to put and get data from database
+     */
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {

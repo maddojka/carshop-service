@@ -1,13 +1,11 @@
 package com.soroko.carshop.constants;
 
 /**
+ * All constants should be written in this class
  * @author yuriy.soroko
  * @version 1.0
  */
 public class Constants {
-    /**
-     * All constants should be written here
-     */
     public static final String GET_ALL_CARS_SQL = "SELECT * FROM carshop.tb_cars ";
     public static final String INSERT_CAR_SQL = "INSERT INTO carshop.tb_cars (id, make, model, year, price, condition) " +
             "VALUES(nextval('carshop.cars_sequence'),?,?,?,?,?)";

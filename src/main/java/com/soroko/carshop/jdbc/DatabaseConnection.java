@@ -12,10 +12,14 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
+ * This class consists database connection
  * @author Yuriy Soroko
  */
 public class DatabaseConnection {
 
+    /**
+     * Database properties
+     */
     private static DatabaseConnection instance;
     @Getter
     private Connection connection;

@@ -19,14 +19,17 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
+ *  This class consists logic of orders data
  * @author yuriy.soroko
  * @version 1.0
  */
 @Loggable
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderService {
-    final OrderRepository orderRepository;
+    /**
+     * inject user repository to put and get data from database
+     */
+    private final OrderRepository orderRepository;
 
     @Autowired
     public OrderService(OrderRepository orderRepository) {

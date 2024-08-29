@@ -16,17 +16,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * This class consists REST API logic of cars
  * @author yuriy.soroko
  * @version 1.0
  */
 @Loggable
 @RestController
 @RequestMapping("/api/car")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CarController {
 
-    final CarService carService;
-    final CarMapper carMapper;
+    private final CarService carService;
+    private final CarMapper carMapper;
 
     @Autowired
     public CarController(CarService carService, CarMapper carMapper) {
@@ -42,11 +42,6 @@ public class CarController {
     @GetMapping("/all")
     public ResponseEntity<List<CarDTO>> getAllCars() throws SQLException {
         List<Car> cars = carService.getCars();
-        if (cars == null) {
-            return ResponseEntity
-                    .status(HttpStatusCode.valueOf(404))
-                    .build();
-        }
         List<CarDTO> carsDTO = carMapper.toCarDTOList(cars);
         return ResponseEntity.ok(carsDTO);
     }

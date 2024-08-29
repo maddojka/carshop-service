@@ -16,15 +16,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * This class consists REST API logic of users
  * @author yuriy.soroko
  */
 @Loggable
 @RestController
 @RequestMapping("/api/user")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserController {
-    final UserService userService;
-    final UserMapper userMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Autowired
     public UserController(UserService userService, UserMapper userMapper) {
@@ -40,11 +40,6 @@ public class UserController {
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() throws SQLException {
         List<User> users = userService.getUsers();
-        if (users == null) {
-            return ResponseEntity
-                    .status(HttpStatusCode.valueOf(404))
-                    .build();
-        }
         List<UserDTO> usersDTO = userMapper.toUserDTOList(users);
         return ResponseEntity.ok(usersDTO);
     }

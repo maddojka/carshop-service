@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
+ * transform Order data transfer object to Order data and vise versa
  * @author yuriy.soroko
  * @version 1.0
  */

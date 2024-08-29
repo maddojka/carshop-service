@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 /**
+ * This class consists web mvc configuration
  * @author yuriy.soroko
  */
 @Configuration

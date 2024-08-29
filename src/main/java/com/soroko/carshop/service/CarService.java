@@ -17,14 +17,17 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
+ * This class consists logic of cars data
  * @author yuriy.soroko
  * @version 1.0
  */
 @Loggable
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CarService {
-    final CarRepository carRepository;
+    /**
+     * inject user repository to put and get data from database
+     */
+    private final CarRepository carRepository;
 
     @Autowired
     public CarService(CarRepository carRepository) {

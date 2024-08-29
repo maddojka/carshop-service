@@ -1,6 +1,8 @@
 package com.soroko.carshop.dto;
 
 /**
+ * This class consists car data transfer object fields
+ * it needs to transform input data to entity
  * @author yuriy.soroko
  * @version 1.0
  */

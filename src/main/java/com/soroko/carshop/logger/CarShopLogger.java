@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 /**
+ * This class consists common logger of the application
  * @author yuriy.soroko
  * @version 1.0
  */

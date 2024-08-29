@@ -19,17 +19,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * This class consists REST API logic of orders
  * @author yuriy.soroko
  * @version 1.0
  */
 @Loggable
 @RestController
 @RequestMapping("/api/order")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderController {
-    final OrderService orderService;
-    final UserService userService;
-    final OrderMapper orderMapper;
+    private final OrderService orderService;
+    private final UserService userService;
+    private final OrderMapper orderMapper;
 
     @Autowired
     public OrderController(OrderService orderService, UserService userService, OrderMapper orderMapper) {
@@ -46,11 +46,6 @@ public class OrderController {
     @GetMapping("/all")
     public ResponseEntity<List<OrderDTO>> getAllOrders() throws SQLException {
         List<Order> orders = orderService.getOrders();
-        if (orders == null) {
-            return ResponseEntity
-                    .status(HttpStatusCode.valueOf(404))
-                    .build();
-        }
         List<OrderDTO> orderDTOS = orderMapper.toOrderDTOList(orders);
         return ResponseEntity.ok(orderDTOS);
     }

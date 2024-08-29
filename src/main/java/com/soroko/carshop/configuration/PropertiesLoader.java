@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * This class consists configuration which allows
+ * to receive data from properties file
  * @author yuriy.soroko
  * @version 1.0
  */

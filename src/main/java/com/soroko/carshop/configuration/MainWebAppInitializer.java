@@ -8,6 +8,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
+ * This class consists web application context and dispatcher servlet configuration
  * @author yuriy.soroko
  */
 public class MainWebAppInitializer implements WebApplicationInitializer {
