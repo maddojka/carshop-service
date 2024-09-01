@@ -4,9 +4,9 @@ import com.soroko.carshop.constants.Constants;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
-import com.soroko.carshop.jdbc.DatabaseConnection;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +14,25 @@ import java.util.List;
 import static com.soroko.carshop.constants.Constants.*;
 
 /**
- *  This class consists SQL queries to get, receive, add or remove order
- *  from database
+ * This class consists SQL queries to get, receive, add or remove order
+ * from database
+ *
  * @author yuriy.soroko
  */
 @org.springframework.stereotype.Repository
 public class OrderRepository extends Repository<Order, Integer> {
     private final CarRepository carRepository = new CarRepository();
     private final UserRepository userRepository = new UserRepository();
-    private final Connection connection = DatabaseConnection.getInstance().getConnection();
+    private Connection connection;
 
-    public OrderRepository() throws SQLException, IOException {
+    public OrderRepository(DataSource dataSource) throws SQLException {
+        connection = dataSource.getConnection();
     }
 
-    public List<Order> getAllOrders() throws SQLException {
+    public OrderRepository() {
+    }
+
+    public List<Order> findAll() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_ALL_ORDERS_SQL);
         List<Order> orders = new ArrayList<>();
@@ -36,8 +41,8 @@ public class OrderRepository extends Repository<Order, Integer> {
             order.setId(resultSet.getInt("id"));
             int carId = resultSet.getInt("car_id");
             int userId = resultSet.getInt("user_id");
-            order.setCar(carRepository.findById(carId));
-            order.setUser(userRepository.findById(userId));
+            order.setCar(carRepository.getById(carId));
+            order.setUser(userRepository.getById(userId));
             order.setStatus(Order.Status.valueOf(resultSet.getString("status")));
             order.setCreatedAt(resultSet.getDate("created_at").toLocalDate());
             orders.add(order);
@@ -46,7 +51,7 @@ public class OrderRepository extends Repository<Order, Integer> {
     }
 
     @Override
-    public Integer insert(Order order) throws SQLException {
+    public Integer save(Order order) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(Constants.INSERT_ORDER_SQL);
         preparedStatement.setInt(1, order.getUser().getId());
         preparedStatement.setInt(2, order.getCar().getId());
@@ -75,16 +80,18 @@ public class OrderRepository extends Repository<Order, Integer> {
     }
 
     @Override
-    public Order findById(Integer integer) throws SQLException {
+    public Order getById(Integer integer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_ORDER_BY_ID_SQL);
         preparedStatement.setInt(1, integer);
-        ResultSet resultSet = preparedStatement.executeQuery(FIND_ORDER_BY_ID_SQL);
+        ResultSet resultSet = preparedStatement.executeQuery(/*FIND_ORDER_BY_ID_SQL*/);
         Order order = new Order();
-        order.setId(resultSet.getInt("id"));
-        order.setCar((Car) resultSet.getObject("car_id"));
-        order.setUser((User) resultSet.getObject("user_id"));
-        order.setStatus(Order.Status.valueOf(resultSet.getString("status")));
-        order.setCreatedAt(resultSet.getDate("created_at").toLocalDate());
+        if (resultSet.next()) {
+            order.setId(resultSet.getInt("id"));
+            order.setCar((Car) resultSet.getObject("car_id"));
+            order.setUser((User) resultSet.getObject("user_id"));
+            order.setStatus(Order.Status.valueOf(resultSet.getString("status")));
+            order.setCreatedAt(resultSet.getDate("created_at").toLocalDate());
+        }
         return order;
     }
 

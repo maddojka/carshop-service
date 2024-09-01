@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
 
     @Mock
-    private OrderController controller;
+    private UserController controller;
 
     @InjectMocks
     private UserService userService;
@@ -51,9 +51,12 @@ class UserControllerTest {
     @Test
     @DisplayName("Check for adding correct user")
     void test_canAddUser() throws Exception {
-        User user = new User(
-                "admin", "123", "admin@mail.ru", 10, User.Role.ADMINISTRATOR);
+        User user = new User();
         user.setId(1);
+        user.setUsername("user999");
+        user.setPassword("123");
+        user.setEmail("user999@mail.com");
+        user.setRole(User.Role.CLIENT);
         String userJson = objectMapper.writeValueAsString(user);
         mockMvc.perform(post("/api/user/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -64,9 +67,12 @@ class UserControllerTest {
     @Test
     @DisplayName("Check for editing existing user")
     void test_canEditUser() throws Exception {
-        User user = new User(
-                "admin", "123", "admin@mail.ru", 10, User.Role.ADMINISTRATOR);
+        User user = new User();
         user.setId(1);
+        user.setUsername("user999");
+        user.setPassword("123");
+        user.setEmail("user999@mail.com");
+        user.setRole(User.Role.CLIENT);
         String userJson = objectMapper.writeValueAsString(user);
         mockMvc.perform(patch("/api/user/edit")
                         .contentType(MediaType.APPLICATION_JSON)
