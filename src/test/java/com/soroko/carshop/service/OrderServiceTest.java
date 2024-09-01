@@ -56,7 +56,6 @@ public class OrderServiceTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Check edit order method - order is negative")
     public void editOrder_NegativeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -64,7 +63,6 @@ public class OrderServiceTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Check edit order method - order is OK")
     public void editOrder_correctId() throws SQLException {
         Car car = new Car();
@@ -108,7 +106,6 @@ public class OrderServiceTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Check complete order method - order is OK")
     public void completeOrder_correctId() throws SQLException {
         User user = new User();

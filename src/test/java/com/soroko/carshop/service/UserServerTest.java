@@ -30,7 +30,6 @@ public class UserServerTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Check add user method - user is OK")
     public void addCar_isNotNull() throws SQLException {
         User updatedUser = new User();
@@ -72,7 +71,6 @@ public class UserServerTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Check edit user method - user id is OK")
     public void editUser_correctId() throws SQLException {
         User user = new User();
