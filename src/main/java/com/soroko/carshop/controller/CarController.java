@@ -55,12 +55,12 @@ public class CarController {
      * @param id id of car
      * @return returns car data
      */
-    @GetMapping("/{id}")
+    @GetMapping("/get")
     @Operation(summary = "Get information about car by id")
     public ResponseEntity<CarDTO> getCarById(
-            @PathVariable
             @Parameter(description = "car id", example = "1")
-            int id) throws SQLException {
+            @RequestParam int id
+            ) throws SQLException {
         var car = carService.getCar(id);
         if (car == null) {
             return ResponseEntity
@@ -102,11 +102,12 @@ public class CarController {
     /**
      * @param id id of the car that you need to delete from the system
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete")
     @Operation(summary = "Delete car from the system")
-    public void deleteCar(@PathVariable
+    public void deleteCar(
                           @Parameter(description = "car id", example = "1")
-                          int id) throws SQLException {
+                          @RequestParam int id
+                          ) throws SQLException {
         carService.sellCar(id);
     }
 

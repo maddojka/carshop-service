@@ -54,11 +54,11 @@ public class UserController {
      * @param id id of user
      * @return returns user data
      */
-    @GetMapping("/{id}")
+    @GetMapping("/get")
     @Operation(summary = "Get information about user by id")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable
+    public ResponseEntity<UserDTO> getUserById(
                                                @Parameter(description = "user id", example = "1")
-                                               int id) throws SQLException {
+                                               @RequestParam int id) throws SQLException {
         var user = userService.getUser(id);
         if (user == null) {
             return ResponseEntity
@@ -101,11 +101,11 @@ public class UserController {
     /**
      * @param id id of the user that need to delete from the system
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete")
     @Operation(summary = "Delete user from the system")
-    public void deleteUser(@PathVariable
+    public void deleteUser(
                            @Parameter(description = "user id", example = "1")
-                           int id) throws SQLException {
+                           @RequestParam int id) throws SQLException {
         userService.removeUser(id);
     }
 }

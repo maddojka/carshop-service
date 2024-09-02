@@ -59,11 +59,12 @@ public class OrderController {
      * @param id id of the order
      * @return returns order data
      */
-    @GetMapping("/{id}")
+    @GetMapping("/get")
     @Operation(summary = "Get information about order by id")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable
+    public ResponseEntity<OrderDTO> getOrderById(
                                                  @Parameter(description = "order id", example = "1")
-                                                 int id) throws SQLException {
+                                                 @RequestParam int id
+                                                 ) throws SQLException {
         var order = orderService.getOrder(id);
         if (order == null) {
             return ResponseEntity
@@ -105,11 +106,11 @@ public class OrderController {
     /**
      * @param id id of the order that need to delete from the system
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete")
     @Operation(summary = "Delete order from the system")
-    public void deleteOrder(@PathVariable
+    public void deleteOrder(
                             @Parameter(description = "order id", example = "1")
-                            int id) throws SQLException {
+                            @RequestParam int id) throws SQLException {
         orderService.cancelOrder(id);
     }
 
