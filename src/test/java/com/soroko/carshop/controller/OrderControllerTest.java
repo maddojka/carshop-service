@@ -47,7 +47,7 @@ class OrderControllerTest {
     @Test
     @DisplayName("Check for getting order by id")
     void test_canGetOrderById() throws Exception {
-        mockMvc.perform(get("/api/order/1")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/order/get?id=1")).andExpect(status().isOk());
     }
 
     @Test
@@ -100,7 +100,7 @@ class OrderControllerTest {
     @DisplayName("Check for deleting existing order")
     void test_canDeleteOrder() throws Exception {
         String orderJson = objectMapper.writeValueAsString(1);
-        mockMvc.perform(delete("/api/order/{id}", 1)
+        mockMvc.perform(delete("/api/order/delete?id=1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(orderJson))
                 .andExpect(status().isOk());

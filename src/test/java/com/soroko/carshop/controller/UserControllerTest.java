@@ -45,7 +45,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Check for getting user by id")
     void test_canGetUserById() throws Exception {
-        mockMvc.perform(get("/api/user/1")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/user/get?id=1")).andExpect(status().isOk());
     }
 
     @Test
@@ -84,7 +84,7 @@ class UserControllerTest {
     @DisplayName("Check for deleting existing user")
     void test_canDeleteUser() throws Exception {
         String userJson = objectMapper.writeValueAsString(1);
-        mockMvc.perform(delete("/api/user/{id}", 1)
+        mockMvc.perform(delete("/api/user/delete?id=1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson))
                 .andExpect(status().isOk());

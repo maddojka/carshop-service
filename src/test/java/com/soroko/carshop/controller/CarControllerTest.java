@@ -46,7 +46,7 @@ class CarControllerTest {
     @Test
     @DisplayName("Check for getting car by id")
     void test_CanGetCarById() throws Exception {
-        mockMvc.perform(get("/api/car/1")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/get?id=1")).andExpect(status().isOk());
     }
 
     @Test
@@ -77,7 +77,7 @@ class CarControllerTest {
     @DisplayName("Check for deleting existing car")
     void test_canDeleteCar() throws Exception {
         String carJson = objectMapper.writeValueAsString(1);
-        mockMvc.perform(delete("/api/car/{id}", 1)
+        mockMvc.perform(delete("/api/car/delete?id=1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(carJson))
                 .andExpect(status().isOk());
