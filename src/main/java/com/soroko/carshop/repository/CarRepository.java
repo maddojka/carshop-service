@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.soroko.carshop.constants.Constants.*;
-
+import org.springframework.stereotype.Repository;
 /**
  * This class consists SQL queries to get, receive, add or remove car
  * from database
  *
  * @author yuriy.soroko
  */
-@org.springframework.stereotype.Repository
+@Repository
 public class CarRepository extends Repository<Car, Integer> {
 
 

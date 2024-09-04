@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.soroko.carshop.constants.Constants.*;
+import org.springframework.stereotype.Repository;
 
 /**
  * This class consists SQL queries to get, receive, add or remove order
@@ -19,17 +20,18 @@ import static com.soroko.carshop.constants.Constants.*;
  *
  * @author yuriy.soroko
  */
-@org.springframework.stereotype.Repository
+@Repository
 public class OrderRepository extends Repository<Order, Integer> {
-    private final CarRepository carRepository = new CarRepository();
-    private final UserRepository userRepository = new UserRepository();
+
+    private final CarRepository carRepository;
+
+    private final UserRepository userRepository;
     private Connection connection;
 
-    public OrderRepository(DataSource dataSource) throws SQLException {
+    public OrderRepository(CarRepository carRepository, UserRepository userRepository, DataSource dataSource) throws SQLException {
+        this.carRepository = carRepository;
+        this.userRepository = userRepository;
         connection = dataSource.getConnection();
-    }
-
-    public OrderRepository() {
     }
 
     public List<Order> findAll() throws SQLException {

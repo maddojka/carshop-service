@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import static com.soroko.carshop.constants.Constants.*;
 
 /**
@@ -16,10 +18,11 @@ import static com.soroko.carshop.constants.Constants.*;
  *
  * @author yuriy.soroko
  */
-@org.springframework.stereotype.Repository
+@Repository
 public class UserRepository extends Repository<User, Integer> {
 
     private Connection connection;
+
     public UserRepository(DataSource dataSource) throws SQLException {
         connection = dataSource.getConnection();
     }
