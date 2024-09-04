@@ -1,7 +1,6 @@
 package com.soroko.carshop.repository;
 
 import com.soroko.carshop.entity.Car;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -10,13 +9,15 @@ import java.util.List;
 
 import static com.soroko.carshop.constants.Constants.*;
 import org.springframework.stereotype.Repository;
+
 /**
  * This class consists SQL queries to get, receive, add or remove car
  * from database
  *
  * @author yuriy.soroko
  */
-@Repository
+//@Repository
+@org.springframework.stereotype.Repository
 public class CarRepository extends Repository<Car, Integer> {
 
 

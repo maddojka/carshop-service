@@ -4,7 +4,6 @@ import com.soroko.carshop.constants.Constants;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
 import java.sql.*;

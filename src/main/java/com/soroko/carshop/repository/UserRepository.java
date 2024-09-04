@@ -1,14 +1,12 @@
 package com.soroko.carshop.repository;
 
 import com.soroko.carshop.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
 
 import static com.soroko.carshop.constants.Constants.*;
 
