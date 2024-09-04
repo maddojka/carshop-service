@@ -16,8 +16,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author yuriy.soroko
  */
-//@Repository
-@org.springframework.stereotype.Repository
+@Repository
 public class CarRepository extends Repository<Car, Integer> {
 
 
