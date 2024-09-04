@@ -1,11 +1,10 @@
 package com.soroko.carshop.service;
 
-import com.soroko.carshop.annotations.Loggable;
+import com.soroko.auditstarter.annotations.EnableLoggable;
 import com.soroko.carshop.entity.Order;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.OrderRepository;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.soroko.carshop.entity.User.Role.CLIENT;
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
@@ -23,7 +21,8 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
-@Loggable
+@Slf4j
+@EnableLoggable
 @Service
 public class OrderService {
     /**
@@ -43,11 +42,11 @@ public class OrderService {
      */
     public void addOrder(Order order) throws SQLException {
         if (order == null) {
-            LOGGER.severe("Order cannot be null");
+            log.error("Order cannot be null");
             throw new IllegalArgumentException("Order cannot be null");
         }
-        orderRepository.insert(order);
-        LOGGER.info("Order added");
+        orderRepository.save(order);
+        log.info("Order added");
     }
 
     /**
@@ -58,10 +57,10 @@ public class OrderService {
      */
     public Order getOrder(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Invalid order id");
+            log.error("Invalid order id");
             throw new IllegalArgumentException("Invalid order id");
         }
-        return orderRepository.findById(id);
+        return orderRepository.getById(id);
     }
 
     /**
@@ -70,7 +69,7 @@ public class OrderService {
      * @return List of the available orders
      */
     public List<Order> getOrders() throws SQLException {
-        return orderRepository.getAllOrders();
+        return orderRepository.findAll();
     }
 
     /**
@@ -80,17 +79,17 @@ public class OrderService {
      */
     public void editOrder(Order order) throws SQLException {
         if (order == null) {
-            LOGGER.severe("Order is null");
+            log.error("Order is null");
             throw new IllegalArgumentException("Order is null");
         }
-        Order orderToEdit = orderRepository.findById(order.getId());
+        Order orderToEdit = orderRepository.getById(order.getId());
         orderToEdit.setId(order.getId());
         orderToEdit.setCar(order.getCar());
         orderToEdit.setUser(order.getUser());
         orderToEdit.setStatus(order.getStatus());
         orderToEdit.setCreatedAt(order.getCreatedAt());
-        orderRepository.update(orderToEdit);
-        LOGGER.info("Order edited");
+        orderRepository.save(orderToEdit);
+        log.info("Order edited");
     }
 
     /**
@@ -100,11 +99,11 @@ public class OrderService {
      */
     public void cancelOrder(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Id cannot be negative");
+            log.error("Id cannot be negative");
             throw new IllegalArgumentException("Id cannot be negative");
         }
         orderRepository.deleteById(id);
-        LOGGER.info("Order cancelled");
+        log.info("Order cancelled");
     }
 
     /**
@@ -114,12 +113,12 @@ public class OrderService {
      */
     public void completeOrder(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Id cannot be negative");
+            log.error("Id cannot be negative");
             throw new IllegalArgumentException("Id cannot be negative");
         }
-        Order order = orderRepository.findById(id);
+        Order order = orderRepository.getById(id);
         order.setStatus(Order.Status.COMPLETED);
-        orderRepository.update(order);
+        orderRepository.save(order);
     }
 
     /**
@@ -130,10 +129,10 @@ public class OrderService {
      */
     public List<Order> findByCarModel(String model) throws SQLException {
         if (model == null || model.isEmpty()) {
-            LOGGER.severe("Car is empty");
+            log.error("Car is empty");
             throw new IllegalArgumentException("Car is empty");
         }
-        List<Order> orders = orderRepository.getAllOrders();
+        List<Order> orders = orderRepository.findAll();
         return orders.stream().filter(x -> x.getCar().getModel().equals(model)).toList();
     }
 
@@ -145,10 +144,10 @@ public class OrderService {
      */
     public List<Order> findBy(User user) throws SQLException {
         if (user == null) {
-            LOGGER.severe("User is empty");
+            log.error("User is empty");
             throw new IllegalArgumentException("User is empty");
         }
-        List<Order> orders = orderRepository.getAllOrders();
+        List<Order> orders = orderRepository.findAll();
         return orders.stream().filter(x -> x.getUser().getRole().equals(CLIENT)).toList();
     }
 
@@ -160,10 +159,10 @@ public class OrderService {
      */
     public List<Order> findBy(String status) throws SQLException {
         if ("".equals(status) || status == null) {
-            LOGGER.severe("Order is empty");
+            log.error("Order is empty");
             throw new IllegalArgumentException("Order is empty");
         }
-        List<Order> orders = orderRepository.getAllOrders();
+        List<Order> orders = orderRepository.findAll();
         return orders.stream().filter(x -> x.getStatus().toString().equals(status))
                 .sorted(Comparator.comparing(Order::getId))
                 .toList();
@@ -177,10 +176,10 @@ public class OrderService {
      */
     public List<Order> findBy(LocalDate localDate) throws SQLException {
         if (localDate == null) {
-            LOGGER.severe("LocalDate is empty");
+            log.error("LocalDate is empty");
             throw new IllegalArgumentException("LocalDate is empty");
         }
-        List<Order> orders = orderRepository.getAllOrders();
+        List<Order> orders = orderRepository.findAll();
         return orders.stream().filter(x -> x.getCreatedAt().isEqual(localDate)).toList();
     }
 }

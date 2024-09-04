@@ -1,29 +1,35 @@
 package com.soroko.carshop.repository;
 
 import com.soroko.carshop.entity.Car;
-import com.soroko.carshop.jdbc.DatabaseConnection;
 
-import java.io.IOException;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.soroko.carshop.constants.Constants.*;
+import org.springframework.stereotype.Repository;
 
 /**
- *  This class consists SQL queries to get, receive, add or remove car
- *  from database
+ * This class consists SQL queries to get, receive, add or remove car
+ * from database
+ *
  * @author yuriy.soroko
  */
-@org.springframework.stereotype.Repository
+@Repository
 public class CarRepository extends Repository<Car, Integer> {
 
-    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public CarRepository() throws SQLException, IOException {
+    private Connection connection;
+
+    public CarRepository(DataSource dataSource) throws SQLException {
+        connection = dataSource.getConnection();
     }
 
-    public List<Car> getAllCars() throws SQLException {
+    public CarRepository() {
+    }
+
+    public List<Car> findAll() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_ALL_CARS_SQL);
         List<Car> cars = new ArrayList<>();
@@ -41,7 +47,7 @@ public class CarRepository extends Repository<Car, Integer> {
     }
 
     @Override
-    public Integer insert(Car car) throws SQLException {
+    public Integer save(Car car) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CAR_SQL);
         preparedStatement.setString(1, car.getMake());
         preparedStatement.setString(2, car.getModel());
@@ -73,7 +79,7 @@ public class CarRepository extends Repository<Car, Integer> {
     }
 
     @Override
-    public Car findById(Integer integer) throws SQLException {
+    public Car getById(Integer integer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_CAR_BY_ID_SQL);
         preparedStatement.setInt(1, integer);
         ResultSet resultSet = preparedStatement.executeQuery();

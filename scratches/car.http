@@ -1,0 +1,45 @@
+POST http://localhost:8002/api/car/add
+Content-Type: application/json
+
+{
+  "id": 10,
+  "make": "Lada",
+  "model": "Granta",
+  "year": 2024,
+  "price": 2000000,
+  "condition": "new"
+}
+
+
+###
+GET http://localhost:8002/api/car/get?id=1
+
+###
+GET http://localhost:8002/api/car/all
+###
+GET http://localhost:8002/api/car/getbycondition?condition=new
+###
+GET http://localhost:8002/api/car/getbyconditionandprice?condition=new&price=1000000
+###
+GET http://localhost:8002/api/car/getbymake?make=Lada
+###
+GET http://localhost:8002/api/car/getbymodel?model=Granta
+###
+GET http://localhost:8002/api/car/getbyprice?price=10000000
+###
+GET http://localhost:8002/api/car/getbyyear?year=2024
+###
+PATCH http://localhost:8002/api/car/edit?id=1
+Content-Type: application/json
+
+{
+  "id": 10,
+  "make": "Lada",
+  "model": "Granta",
+  "year": 2023,
+  "price": 2000000,
+  "condition": "used"
+}
+
+###
+DELETE http://localhost:8002/api/car/delete?id=1

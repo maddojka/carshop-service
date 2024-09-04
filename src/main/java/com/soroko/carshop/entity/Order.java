@@ -1,13 +1,13 @@
 package com.soroko.carshop.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
 
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
@@ -15,33 +15,38 @@ import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
  * @author yuriy.soroko
  * @version 1.0
  */
+@Slf4j
 @Getter
 @Setter
 @Component
 public class Order {
-
+    /**
+     * Basic fields of the order
+     */
     private int id;
-
     private User user;
-
     private Car car;
-
     private Status status;
-
     private LocalDate createdAt;
 
+    /**
+     * Constructor which required to create an order
+     * @param user user of the order
+     * @param car car of the order
+     * @param status status of the order
+     */
     public Order(User user, Car car, Status status) {
         if (user == null) {
-            LOGGER.log(Level.SEVERE, "user is null");
-            throw new IllegalArgumentException("user is null");
+            log.info("User is null");
+            throw new IllegalArgumentException("User is null");
         }
         if (car == null) {
-            LOGGER.log(Level.SEVERE, "car is null");
-            throw new IllegalArgumentException("car is null");
+            log.info("Car is null");
+            throw new IllegalArgumentException("Car is null");
         }
         if (status == null) {
-            LOGGER.log(Level.SEVERE, "status is null");
-            throw new IllegalArgumentException("status is null");
+            log.info("Status is null");
+            throw new IllegalArgumentException("Status is null");
         }
         this.user = user;
         this.car = car;
@@ -52,6 +57,10 @@ public class Order {
     public Order() {
     }
 
+    /**
+     * Text representation of the order object
+     * @return returns String
+     */
     @Override
     public String toString() {
         return "Order{" +
@@ -63,6 +72,9 @@ public class Order {
                 '}';
     }
 
+    /**
+     * Enum class that required to set specific order status
+     */
     public enum Status {
         CREATED, IN_PROGRESS, COMPLETED;
     }

@@ -1,44 +1,50 @@
 package com.soroko.carshop.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
-import java.util.logging.Level;
-
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 
 /**
  * This class consists fields to store user data to database
+ *
  * @author yuriy.soroko
  * @version 1.0
  */
+@Slf4j
 @Getter
 @Setter
 @Component
 public class User {
-
+    /**
+     * Basic fields of the user
+     */
     private int id;
-
     private String username;
-
     private String password;
-
     private String email;
-
     private int numberOfPurchases;
-
     private Role role;
 
+    /**
+     * Constructors which required to create a user
+     * @param username username of the user
+     * @param password password of the user
+     * @param email email of the user
+     * @param numberOfPurchases number of purchases of the user
+     * @param role role of the user
+     */
     public User(String username, String password, String email, int numberOfPurchases, Role role) {
         if ("".equals(username) || username == null) {
-            LOGGER.log(Level.SEVERE, "Username is empty");
+            log.info("Username is empty");
             throw new IllegalArgumentException("Username is empty");
         }
         if ("".equals(password) || password == null) {
-            LOGGER.log(Level.SEVERE, "Password is empty");
+            log.info("Password is empty");
             throw new IllegalArgumentException("Password is empty");
         }
         this.username = username;
@@ -53,11 +59,11 @@ public class User {
 
     public User(String username, String password, String email, Role role) {
         if ("".equals(username) || username == null) {
-            LOGGER.log(Level.SEVERE, "Username is empty");
+            log.info("Username is empty");
             throw new IllegalArgumentException("Username is empty");
         }
         if ("".equals(password) || password == null) {
-            LOGGER.log(Level.SEVERE, "Password is empty");
+            log.info("Password is empty");
             throw new IllegalArgumentException("Password is empty");
         }
         this.username = username;
@@ -71,9 +77,10 @@ public class User {
     public User() {
     }
 
+    // getters and setters
     public void setEmail(String email) {
         if ("".equals(email) || email == null) {
-            LOGGER.log(Level.SEVERE, "Email is empty");
+            log.info("Email is empty");
             throw new IllegalArgumentException("Email is empty");
         }
         this.email = email;
@@ -81,7 +88,7 @@ public class User {
 
     public void setNumberOfPurchases(int numberOfPurchases) {
         if (numberOfPurchases < 0) {
-            LOGGER.log(Level.SEVERE, "Number of purchases cannot be negative");
+            log.info("Number of purchases cannot be negative");
             throw new IllegalArgumentException("Number of purchases cannot be negative");
         }
         this.numberOfPurchases = numberOfPurchases;
@@ -89,12 +96,16 @@ public class User {
 
     public void setRole(Role role) {
         if (role == null) {
-            LOGGER.log(Level.SEVERE, "Role is null");
+            log.info("Role is null");
             throw new IllegalArgumentException("Role is null");
         }
         this.role = role;
     }
 
+    /**
+     * Text representation of the user object
+     * @return returns String
+     */
     @Override
     public String toString() {
         return "User{" +
@@ -106,6 +117,10 @@ public class User {
                 '}';
     }
 
+
+    /**
+     * Equals and hashcode methods which compares two objects
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,14 +128,16 @@ public class User {
         return Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getUsername(), getPassword());
     }
 
-
+    /**
+     * Enum class that required to set specific user roles
+     */
     public enum Role {
         ADMINISTRATOR, MANAGER, CLIENT;
     }
 }
-

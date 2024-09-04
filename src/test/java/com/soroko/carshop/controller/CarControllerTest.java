@@ -46,7 +46,7 @@ class CarControllerTest {
     @Test
     @DisplayName("Check for getting car by id")
     void test_CanGetCarById() throws Exception {
-        mockMvc.perform(get("/api/car/1")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/get?id=1")).andExpect(status().isOk());
     }
 
     @Test
@@ -77,7 +77,7 @@ class CarControllerTest {
     @DisplayName("Check for deleting existing car")
     void test_canDeleteCar() throws Exception {
         String carJson = objectMapper.writeValueAsString(1);
-        mockMvc.perform(delete("/api/car/{id}", 1)
+        mockMvc.perform(delete("/api/car/delete?id=1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(carJson))
                 .andExpect(status().isOk());
@@ -86,36 +86,37 @@ class CarControllerTest {
     @Test
     @DisplayName("Check for getting car by condition and price")
     void test_canGetCarByConditionAndPrice() throws Exception {
-        mockMvc.perform(get("/api/car/getbyconditionandprice")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbyconditionandprice?condition=used&price=1000000"))
+                .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Check for getting car by condition")
     void test_canGetCarByCondition() throws Exception {
-        mockMvc.perform(get("/api/car/getbycondition")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbycondition?condition=new")).andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Check for getting car by make")
     void test_canGetCarByMake() throws Exception {
-        mockMvc.perform(get("/api/car/getbymake")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbymake?make=Lada")).andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Check for getting car by model")
     void test_canGetCarByModel() throws Exception {
-        mockMvc.perform(get("/api/car/getbymodel")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbymodel?model=Granta")).andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Check for getting car by price")
     void test_canGetCarByPrice() throws Exception {
-        mockMvc.perform(get("/api/car/getbyprice")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbyprice?price=2000000")).andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Check for getting car by year")
     void test_canGetCarByYear() throws Exception {
-        mockMvc.perform(get("/api/car/getbyyear")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/car/getbyyear?year=2024")).andExpect(status().isOk());
     }
 }

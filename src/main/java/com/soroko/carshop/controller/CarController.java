@@ -1,13 +1,14 @@
 package com.soroko.carshop.controller;
-
-import com.soroko.carshop.annotations.Loggable;
+import com.soroko.auditstarter.annotations.EnableLoggable;
 import com.soroko.carshop.dto.CarDTO;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.mapper.CarMapper;
 import com.soroko.carshop.service.CarService;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,23 @@ import java.util.List;
 
 /**
  * This class consists REST API logic of cars
+ *
  * @author yuriy.soroko
  * @version 1.0
  */
-@Loggable
+@Slf4j
+@EnableLoggable
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/car")
+@Tag(
+        name = "Cars",
+        description = "All methods to work with cars data of the system"
+)
 public class CarController {
 
     private final CarService carService;
     private final CarMapper carMapper;
-
-    @Autowired
-    public CarController(CarService carService, CarMapper carMapper) {
-        this.carService = carService;
-        this.carMapper = carMapper;
-    }
 
     /**
      * Get all cars from the service
@@ -40,6 +42,7 @@ public class CarController {
      * @return returns list of all modified cars by mapper
      */
     @GetMapping("/all")
+    @Operation(summary = "Get information about all cars")
     public ResponseEntity<List<CarDTO>> getAllCars() throws SQLException {
         List<Car> cars = carService.getCars();
         List<CarDTO> carsDTO = carMapper.toCarDTOList(cars);
@@ -52,8 +55,12 @@ public class CarController {
      * @param id id of car
      * @return returns car data
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<CarDTO> getCarById(@PathVariable int id) throws SQLException {
+    @GetMapping("/get")
+    @Operation(summary = "Get information about car by id")
+    public ResponseEntity<CarDTO> getCarById(
+            @Parameter(description = "car id", example = "1")
+            @RequestParam int id
+            ) throws SQLException {
         var car = carService.getCar(id);
         if (car == null) {
             return ResponseEntity
@@ -71,9 +78,11 @@ public class CarController {
      * @return returns car which was added
      */
     @PostMapping("/add")
+    @Operation(summary = "Add car to the system")
     public ResponseEntity<Car> addCar(@RequestBody CarDTO carDTO) throws SQLException {
         var car = carMapper.toCar(carDTO);
         carService.addCar(car);
+        log.info("Adding new car: {}", car);
         return ResponseEntity.ok(car);
     }
 
@@ -82,17 +91,23 @@ public class CarController {
      * @return returns car which was edited
      */
     @PatchMapping("/edit")
+    @Operation(summary = "Edit existing car of the system")
     public ResponseEntity<Car> editCar(@RequestBody CarDTO carDTO) throws SQLException {
         var car = carMapper.toCar(carDTO);
         carService.editCar(car);
+        log.info("Updating car: {}", car);
         return ResponseEntity.ok(car);
     }
 
     /**
      * @param id id of the car that you need to delete from the system
      */
-    @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable int id) throws SQLException {
+    @DeleteMapping("/delete")
+    @Operation(summary = "Delete car from the system")
+    public void deleteCar(
+                          @Parameter(description = "car id", example = "1")
+                          @RequestParam int id
+                          ) throws SQLException {
         carService.sellCar(id);
     }
 
@@ -102,8 +117,13 @@ public class CarController {
      * @return returns list of all filtered cars by condition and price
      */
     @GetMapping("/getbyconditionandprice")
-    public ResponseEntity<List<CarDTO>> getCarByConditionAndPrice(@RequestParam String condition,
-                                                                  @RequestParam double price) throws SQLException {
+    @Operation(summary = "Get car from the system by condition and price")
+    public ResponseEntity<List<CarDTO>> getCarByConditionAndPrice(
+            @RequestParam
+            @Parameter(description = "condition", example = "new")
+            String condition,
+            @RequestParam @Parameter(description = "price", example = "1000000")
+            double price) throws SQLException {
         List<Car> cars = carService.findByConditionAndPrice(condition, price);
         if (cars == null) {
             ResponseEntity
@@ -119,7 +139,10 @@ public class CarController {
      * @return returns list of all filtered cars by condition
      */
     @GetMapping("/getbycondition")
-    public ResponseEntity<List<CarDTO>> getCarByCondition(@RequestParam String condition) throws SQLException {
+    @Operation(summary = "Get car from the system by condition")
+    public ResponseEntity<List<CarDTO>> getCarByCondition(@RequestParam
+                                                          @Parameter(description = "condition", example = "new") String condition)
+            throws SQLException {
         List<Car> cars = carService.findByCondition(condition);
         if (cars == null) {
             ResponseEntity
@@ -135,7 +158,10 @@ public class CarController {
      * @return returns list of all filtered cars by make
      */
     @GetMapping("/getbymake")
-    public ResponseEntity<List<CarDTO>> getCarByMake(@RequestParam String make) throws SQLException {
+    @Operation(summary = "Get car from the system by make")
+    public ResponseEntity<List<CarDTO>> getCarByMake(@RequestParam
+                                                     @Parameter(description = "make", example = "Lada") String make)
+            throws SQLException {
         List<Car> cars = carService.findByCondition(make);
         if (cars == null) {
             ResponseEntity
@@ -151,7 +177,10 @@ public class CarController {
      * @return returns list of all filtered cars by model
      */
     @GetMapping("/getbymodel")
-    public ResponseEntity<List<CarDTO>> getCarByModel(@RequestParam String model) throws SQLException {
+    @Operation(summary = "Get car from the system by model")
+    public ResponseEntity<List<CarDTO>> getCarByModel(@RequestParam
+                                                      @Parameter(description = "model", example = "Granta")
+                                                      String model) throws SQLException {
         List<Car> cars = carService.findByModel(model);
         if (cars == null) {
             ResponseEntity
@@ -166,8 +195,12 @@ public class CarController {
      * @param price price to filter
      * @return returns list of all filtered cars by price
      */
-    @GetMapping("getbyprice")
-    public ResponseEntity<List<CarDTO>> getCarByPrice(@RequestParam double price) throws SQLException {
+    @GetMapping("/getbyprice")
+    @Operation(summary = "Get car from the system by price")
+    public ResponseEntity<List<CarDTO>> getCarByPrice(
+            @RequestParam
+            @Parameter(description = "price", example = "1000000") double price)
+            throws SQLException {
         List<Car> cars = carService.findAndSortBy(price);
         if (cars == null) {
             ResponseEntity
@@ -182,8 +215,11 @@ public class CarController {
      * @param year year to filter
      * @return returns list of all filtered cars by year
      */
-    @GetMapping("getbyyear")
-    public ResponseEntity<List<CarDTO>> getCarByYear(@RequestParam int year) throws SQLException {
+    @GetMapping("/getbyyear")
+    @Operation(summary = "Get car from the system by year")
+    public ResponseEntity<List<CarDTO>> getCarByYear(@RequestParam
+                                                     @Parameter(description = "year", example = "2024") int year)
+            throws SQLException {
         List<Car> cars = carService.findAndSortBy(year);
         if (cars == null) {
             ResponseEntity

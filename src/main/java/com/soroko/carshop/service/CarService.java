@@ -1,10 +1,9 @@
 package com.soroko.carshop.service;
 
-import com.soroko.carshop.annotations.Loggable;
+import com.soroko.auditstarter.annotations.EnableLoggable;
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.repository.CarRepository;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,15 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
-
 
 /**
  * This class consists logic of cars data
+ *
  * @author yuriy.soroko
  * @version 1.0
  */
-@Loggable
+@Slf4j
+@EnableLoggable
 @Service
 public class CarService {
     /**
@@ -41,11 +40,11 @@ public class CarService {
      */
     public void addCar(Car car) throws SQLException {
         if (car == null) {
-            LOGGER.severe("car is null");
+            log.error("car is null");
             throw new IllegalArgumentException("car is null");
         }
-        carRepository.insert(car);
-        LOGGER.info("Car was added");
+        carRepository.save(car);
+        log.info("Car was added");
     }
 
     /**
@@ -56,10 +55,10 @@ public class CarService {
      */
     public Car getCar(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Car id does not exist");
+            log.error("Car id does not exist");
             throw new IllegalArgumentException("Car id does not exist");
         }
-        return carRepository.findById(id);
+        return carRepository.getById(id);
     }
 
     /**
@@ -68,7 +67,7 @@ public class CarService {
      * @return List of the available cars
      */
     public List<Car> getCars() throws SQLException {
-        return carRepository.getAllCars();
+        return carRepository.findAll();
     }
 
 
@@ -79,18 +78,18 @@ public class CarService {
      */
     public void editCar(Car car) throws SQLException {
         if (car == null) {
-            LOGGER.severe("Car does not exist");
+            log.error("Car does not exist");
             throw new IllegalArgumentException("Car does not exist");
         }
-        Car carToEdit = carRepository.findById(car.getId());
+        Car carToEdit = carRepository.getById(car.getId());
         carToEdit.setId(car.getId());
         carToEdit.setMake(car.getMake());
         carToEdit.setModel(car.getModel());
         carToEdit.setYear(car.getYear());
         carToEdit.setPrice(car.getPrice());
         carToEdit.setCondition(car.getCondition());
-        carRepository.update(carToEdit);
-        LOGGER.info("Car was updated");
+        carRepository.save(carToEdit);
+        log.info("Car was updated");
     }
 
     /**
@@ -100,11 +99,11 @@ public class CarService {
      */
     public void sellCar(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Id cannot be negative");
+            log.error("Id cannot be negative");
             throw new IllegalArgumentException("Id cannot be negative");
         }
         carRepository.deleteById(id);
-        LOGGER.info("Car was deleted");
+        log.info("Car was deleted");
     }
 
     /**
@@ -115,10 +114,10 @@ public class CarService {
      */
     public List<Car> findAndSortBy(String make) throws SQLException {
         if ("".equals(make) || make == null) {
-            LOGGER.severe("make is empty");
+            log.error("make is empty");
             throw new IllegalArgumentException("make is empty");
         }
-        List<Car> cars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
         return cars.stream().filter(x -> x.getMake().equals(make)).toList();
     }
 
@@ -130,10 +129,10 @@ public class CarService {
      */
     public List<Car> findAndSortBy(int year) throws SQLException {
         if (year < 2000 || year > Calendar.getInstance().get(Calendar.YEAR)) {
-            LOGGER.severe("Car year does not exist");
+            log.error("Car year does not exist");
             throw new IllegalArgumentException("Car year does not exist");
         }
-        List<Car> cars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
         return cars.stream().filter(x -> x.getYear() == year)
                 .sorted(Comparator.comparingInt(Car::getYear)).toList();
     }
@@ -146,11 +145,12 @@ public class CarService {
      */
     public List<Car> findAndSortBy(double price) throws SQLException {
         if (price < 0) {
-            LOGGER.severe("price is negative");
+            log.error("price is negative");
             throw new IllegalArgumentException("price is negative");
         }
-        List<Car> cars = carRepository.getAllCars();
-        return cars.stream().filter(x -> x.getPrice() <= price).sorted().toList();
+        List<Car> cars = carRepository.findAll();
+        return cars.stream().filter(x -> x.getPrice() <= price)
+                .sorted(Comparator.comparingDouble(Car::getPrice)).toList();
     }
 
     /**
@@ -161,10 +161,10 @@ public class CarService {
      */
     public List<Car> findByModel(String model) throws SQLException {
         if ("".equals(model) || model == null) {
-            LOGGER.severe("model is null");
+            log.error("model is null");
             throw new IllegalArgumentException("model is null");
         }
-        List<Car> cars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
         return cars.stream().filter(x -> x.getModel().equals(model)).toList();
     }
 
@@ -176,10 +176,10 @@ public class CarService {
      */
     public List<Car> findByCondition(String condition) throws SQLException {
         if ("".equals(condition) || condition == null) {
-            LOGGER.severe("condition is empty");
+            log.error("condition is empty");
             throw new IllegalArgumentException("condition is empty");
         }
-        List<Car> cars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
         return cars.stream().filter(x -> x.getCondition().equals(condition)).toList();
     }
 
@@ -191,10 +191,10 @@ public class CarService {
      */
     public List<Car> findByConditionAndPrice(String condition, double price) throws SQLException {
         if ("".equals(condition) || condition == null || price < 0) {
-            LOGGER.severe("condition is empty or price is negative");
+            log.error("condition is empty or price is negative");
             throw new IllegalArgumentException("condition is empty or price is negative");
         }
-        List<Car> cars = carRepository.getAllCars();
+        List<Car> cars = carRepository.findAll();
         return cars.stream().filter(x -> x.getCondition().equals(condition))
                 .filter(x -> x.getPrice() < price).toList();
     }

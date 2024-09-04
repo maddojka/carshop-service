@@ -1,0 +1,31 @@
+POST http://localhost:8002/api/user/add
+Content-Type: application/json
+
+{
+  "id": 10,
+  "username": "admin01",
+  "email": "user@example.com",
+  "role": "MANAGER",
+  "numberOfPurchases": 8
+}
+
+
+###
+GET http://localhost:8002/api/user/get?id=1
+
+###
+GET http://localhost:8002/api/user/all
+###
+PATCH http://localhost:8002/api/user/edit?id=1
+Content-Type: application/json
+
+{
+  "id": 10,
+  "username": "admin01",
+  "email": "user@example.com",
+  "role": "ADMINISTRATOR",
+  "numberOfPurchases": 5
+}
+
+###
+DELETE http://localhost:8002/api/user/delete?id=1

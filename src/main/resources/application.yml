@@ -1,5 +1,20 @@
-url: jdbc:postgresql://localhost:5432/postgres?currentSchema=service
-driver: org.postgresql.Driver
-db_username: postgres
-db_password: 123
+
+spring.application.name: carshop-service
+server.port: 8002
+
 liquibaseSchemaName: service
+
+spring.datasource.driver: org.postgresql.Driver
+spring.sql.init.platform: postgres
+spring.datasource.url: jdbc:postgresql://localhost:5432/postgres?currentSchema=service
+spring.datasource.username: postgres
+spring.datasource.password: 123
+spring.jpa.hibernate.ddl-auto: create
+
+spring.jpa.show-sql: true
+spring.jpa.defer-datasource-initialization: true
+spring.sql.init.mode: always
+
+spring.security.user.name: admin
+spring.security.user.password: 123
+

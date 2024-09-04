@@ -16,7 +16,7 @@ public class UserTest {
     @DisplayName("Check empty username exception")
     public void User_empty_username() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("", "456", "user02@gmail.com", MANAGER);
+            User user = new User("", "456", "user02@gmail.com", 0, MANAGER);
         });
     }
 
@@ -24,7 +24,7 @@ public class UserTest {
     @DisplayName("Check empty password exception")
     public void User_empty_password() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("admin", "", "user02@gmail.com", MANAGER);
+            User user = new User("admin", "", "user02@gmail.com", 0, MANAGER);
         });
     }
 
@@ -32,7 +32,7 @@ public class UserTest {
     @DisplayName("Check empty email exception")
     public void User_empty_email() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("admin", "123", "", MANAGER);
+            User user = new User("admin", "123", "", 0, MANAGER);
         });
     }
 
@@ -40,7 +40,7 @@ public class UserTest {
     @DisplayName("Check null username exception")
     public void User_null_username() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User(null, "123", "user02@gmail.com", MANAGER);
+            User user = new User(null, "123", "user02@gmail.com", 0, MANAGER);
         });
     }
 
@@ -48,7 +48,7 @@ public class UserTest {
     @DisplayName("Check null password exception")
     public void User_null_password() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("admin", null, "user02@gmail.com", MANAGER);
+            User user = new User("admin", null, "user02@gmail.com", 0, MANAGER);
         });
     }
 
@@ -56,7 +56,7 @@ public class UserTest {
     @DisplayName("Check null email exception")
     public void User_null_email() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("admin", "123", null, MANAGER);
+            User user = new User("admin", "123", null, 0, MANAGER);
         });
     }
 
@@ -64,7 +64,7 @@ public class UserTest {
     @DisplayName("Check null role exception")
     public void User_null_role() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User("admin", "123", "user02@gmail.com", null);
+            User user = new User("admin", "123", "user02@gmail.com", 0, null);
         });
     }
 
@@ -72,7 +72,7 @@ public class UserTest {
     @DisplayName("Check negative number of purchases exception")
     public void Order_numberOfPurchases_isNegative() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            User user = new User(null, "123", "user02@gmail.com", MANAGER);
+            User user = new User(null, "123", "user02@gmail.com", 0, MANAGER);
             user.setNumberOfPurchases(-1);
         });
     }
@@ -80,7 +80,7 @@ public class UserTest {
     @Test
     @DisplayName("Check user is OK")
     public void User_isOk() {
-        User user = new User("admin", "123", "user02@gmail.com", MANAGER);
+        User user = new User("admin", "123", "user02@gmail.com", 0, MANAGER);
         user.setRole(MANAGER);
         user.getRole();
         user.setPassword("123");
@@ -90,7 +90,7 @@ public class UserTest {
         user.setUsername("user01");
         user.getUsername();
         user.toString();
-        User user1 = new User("admin", "123", "user02@gmail.com", MANAGER);
+        User user1 = new User("admin", "123", "user02@gmail.com", 0, MANAGER);
         user.equals(user1);
         user.hashCode();
     }

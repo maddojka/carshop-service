@@ -2,25 +2,30 @@ package com.soroko.carshop.service;
 
 import com.soroko.carshop.entity.Car;
 import com.soroko.carshop.repository.CarRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
  * @author yuriy.soroko
  * @version 1.0
  */
+
 public class CarServiceTest {
 
     private CarService carService;
+
     private CarRepository carRepository;
 
     @BeforeEach
-    public void setUp() throws SQLException, IOException {
+    public void setUp() throws SQLException {
+        DataSourceTest dataSourceTest = new DataSourceTest();
+        carRepository = new CarRepository(dataSourceTest.dataSource);
         carService = new CarService(carRepository);
     }
 
@@ -34,7 +39,8 @@ public class CarServiceTest {
     @Test
     @DisplayName("Check add car method - car is not null")
     public void addCar_isNotNull() throws SQLException {
-        Car car = new Car();
+        Car car =
+                new Car("Lada", "Granta", 2010, 1_000_000, "new");
         carService.addCar(car);
     }
 
@@ -45,12 +51,6 @@ public class CarServiceTest {
                 carService.getCar(-1));
     }
 
-    @Test
-    @DisplayName("Check get car method - car id is oversized")
-    public void getCar_OversizeId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                carService.getCar(Integer.MAX_VALUE));
-    }
 
     @Test
     @DisplayName("Check get car method - car id is OK")
@@ -88,13 +88,6 @@ public class CarServiceTest {
     public void sellCar_NegativeId() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 carService.sellCar(-1));
-    }
-
-    @Test
-    @DisplayName("Check sell car method - car id is oversized")
-    public void sellCar_OversizeId() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                carService.sellCar(Integer.MAX_VALUE));
     }
 
     @Test

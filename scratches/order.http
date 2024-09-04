@@ -1,0 +1,64 @@
+
+POST http://localhost:8002/api/order/add
+Content-Type: application/json
+
+{
+  "id": 10,
+  "user": {
+    "id": 10,
+    "username": "user01",
+    "password": "123",
+    "email": "user01@mail.com",
+    "numberOfPurchases": 2,
+    "role": "CLIENT"
+  },
+  "car": {
+    "id": 10,
+    "make": "Lada",
+    "model": "Granta",
+    "year": 2024,
+    "price": 2000000,
+    "condition": "new"
+  },
+  "status": "CREATED",
+  "createdAt": "2024-01-01"
+}
+
+###
+GET http://localhost:8002/api/order/get?id=1
+###
+GET http://localhost:8002/api/order/all
+###
+GET http://localhost:8002/api/order/getbydate?date=2024-01-01
+###
+GET http://localhost:8002/api/order/getbystatus?status=created
+###
+GET http://localhost:8002/api/order/getbyuser?id=1
+###
+PATCH http://localhost:8002/api/order/edit?id=1
+Content-Type: application/json
+
+{
+  "id": 10,
+  "user": {
+    "id": 10,
+    "username": "user01",
+    "password": "123",
+    "email": "user01@mail.com",
+    "numberOfPurchases": 2,
+    "role": "CLIENT"
+  },
+  "car": {
+    "id": 10,
+    "make": "Lada",
+    "model": "Granta",
+    "year": 2024,
+    "price": 2000000,
+    "condition": "new"
+  },
+  "status": "COMPLETED",
+  "createdAt": "2024-01-01"
+}
+
+###
+DELETE http://localhost:8002/api/order/delete?id=1

@@ -1,24 +1,24 @@
 package com.soroko.carshop.service;
 
-import com.soroko.carshop.annotations.Loggable;
+import com.soroko.auditstarter.annotations.EnableLoggable;
 import com.soroko.carshop.entity.User;
 import com.soroko.carshop.repository.UserRepository;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.soroko.carshop.logger.CarShopLogger.LOGGER;
 
 /**
  * This class consists logic of users data
+ *
  * @author yuriy.soroko
  * @version 1.0
  */
-@Loggable
+@Slf4j
+@EnableLoggable
 @Service
 public class UserService {
     /**
@@ -38,11 +38,11 @@ public class UserService {
      */
     public void addUser(User user) throws SQLException {
         if (user == null) {
-            LOGGER.severe("User is null");
+            log.error("User is null");
             throw new IllegalArgumentException("User is null");
         }
-        this.userRepository.insert(user);
-        LOGGER.info("User was added");
+        this.userRepository.save(user);
+        log.info("User was added");
     }
 
     /**
@@ -53,10 +53,10 @@ public class UserService {
      */
     public User getUser(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("User not found");
+//            log.error("User not found");
             throw new IllegalArgumentException("User not found");
         }
-        return this.userRepository.findById(id);
+        return this.userRepository.getById(id);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserService {
      * @return List of the available cars
      */
     public List<User> getUsers() throws SQLException {
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
     /**
@@ -75,18 +75,18 @@ public class UserService {
      */
     public void editUser(User user) throws SQLException {
         if (user == null) {
-            LOGGER.severe("User not found");
+            log.error("User not found");
             throw new IllegalArgumentException("User not found");
         }
-        User userToEdit = userRepository.findById(user.getId());
+        User userToEdit = userRepository.getById(user.getId());
         userToEdit.setId(user.getId());
         userToEdit.setUsername(user.getUsername());
         userToEdit.setPassword(user.getPassword());
         userToEdit.setEmail(user.getEmail());
         userToEdit.setNumberOfPurchases(user.getNumberOfPurchases());
         userToEdit.setRole(user.getRole());
-        userRepository.update(userToEdit);
-        LOGGER.info("User was edited");
+        userRepository.save(userToEdit);
+        log.info("User was edited");
     }
 
     /**
@@ -96,10 +96,10 @@ public class UserService {
      */
     public void removeUser(int id) throws SQLException {
         if (id < 0) {
-            LOGGER.severe("Id cannot be negative");
+            log.error("Id cannot be negative");
             throw new IllegalArgumentException("Id cannot be negative");
         }
         userRepository.deleteById(id);
-        LOGGER.info("User was removed");
+        log.info("User was removed");
     }
 }
