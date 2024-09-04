@@ -1,8 +1,7 @@
 # Default ignored files
 /out
-/.idea
 .out/
-.idea/
+.idea
 /shelf/
 /workspace.xml
 # Editor-based HTTP Client requests
